@@ -14,9 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'].str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-
-$config['server_root'] = $_SERVER['DOCUMENT_ROOT'];
+$config['base_url']	= 'http://local.sieva.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +26,7 @@ $config['server_root'] = $_SERVER['DOCUMENT_ROOT'];
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -226,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'iloveukdwsomuch';
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
