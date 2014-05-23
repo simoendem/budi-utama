@@ -1,3 +1,11 @@
+jQuery(window).load(function() {
+   
+   // Page Preloader
+   jQuery('#status').fadeOut();
+   jQuery('#preloader').delay(1350).fadeOut(function(){
+      jQuery('body').delay(1350).css({'overflow':'visible'});
+   });
+});
 jQuery(document).ready(function() {
     jQuery('#preloader').css({'display' : 'none'});
    // Toggle Left Menu
