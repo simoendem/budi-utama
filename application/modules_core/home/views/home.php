@@ -56,12 +56,15 @@
             
             <div class="col-md-5">
                 
-                <form method="post" action="#">
+                <form id="sasPanel" method="post" action="<?php echo base_url();?>dashboard">
                     <h4 class="nomargin">Sign In</h4>
                     <p class="mt5 mb20">Login to access your account.</p>
-                
-                    <input type="text" class="form-control uname" placeholder="Username" />
-                    <input type="password" class="form-control pword" placeholder="Password" />
+					<div class="form-group">
+                    	<input type="text" name="username" class="form-control uname" placeholder="Username" required/>
+					</div>
+					<div class="form-group">
+                    	<input type="password" name="password" class="form-control pword" placeholder="Password" required/>
+					</div>
                     <a href="#"><small>Forgot Your Password?</small></a>
                     <button class="btn btn-success btn-block">Sign In</button>
                     
@@ -84,13 +87,30 @@
 </section>
 
 
-<script src="<?php echo base_url();?>bracket/js/jquery-1.10.2.min.js"></script>
-<script src="<?php echo base_url();?>bracket/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="<?php echo base_url();?>bracket/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url();?>bracket/js/modernizr.min.js"></script>
-<script src="<?php echo base_url();?>bracket/js/retina.min.js"></script>
+<script src="<?php echo base_url();?>js/jquery-1.10.2.min.js"></script>
+<script src="<?php echo base_url();?>js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>js/modernizr.min.js"></script>
+<script src="<?php echo base_url();?>js/jquery.sparkline.min.js"></script>
+<script src="<?php echo base_url();?>js/toggles.min.js"></script>
+<script src="<?php echo base_url();?>js/retina.min.js"></script>
+<script src="<?php echo base_url();?>js/jquery.cookies.js"></script>
+<script src="<?php echo base_url();?>js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>js/custom.js"></script>
 
-<!-- <script src="<?php echo base_url();?>bracket/js/custom.js"></script> -->
-
+<script type="text/javascript">
+jQuery("#sasPanel").validate({
+	message: {
+		username : "mohon masukkan username Anda",
+		password : "mohon masukkan password Anda"
+	}
+    highlight: function(element) {
+      jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+    },
+    success: function(element) {
+      jQuery(element).closest('.form-group').removeClass('has-error');
+    }
+  });
+</script>
 </body>
 </html>
