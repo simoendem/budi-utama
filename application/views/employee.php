@@ -1,5 +1,5 @@
     <div class="pageheader">
-      <h2><i class="fa fa-table"></i> Users Setup <span>Employee</span></h2>
+      <h2><i class="fa fa-group"></i> Users Setup <span>Employee</span></h2>
       <div class="breadcrumb-wrapper">
         <span class="label">You are here:</span>
         <ol class="breadcrumb">
