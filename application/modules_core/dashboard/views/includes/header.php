@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="<?php echo base_url();?>bracket/images/favicon.png" type="image/png">
 
-  <title><?php $title;?></title>
+  <title><?php echo $title;?></title>
 
   <link href="<?php echo base_url();?>bracket/css/style.default.css" rel="stylesheet">
   <link href="<?php echo base_url();?>bracket/css/jquery.datatables.css" rel="stylesheet">
