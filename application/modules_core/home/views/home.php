@@ -21,11 +21,9 @@
 <body class="signin">
 
 <!-- Preloader -->
-<!--
 <div id="preloader">
     <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
 </div>
--->
 
 <section>
   
@@ -87,23 +85,23 @@
 </section>
 
 
-<script src="<?php echo base_url();?>js/jquery-1.10.2.min.js"></script>
-<script src="<?php echo base_url();?>js/jquery-migrate-1.2.1.min.js"></script>
-<script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
-<script src="<?php echo base_url();?>js/modernizr.min.js"></script>
-<script src="<?php echo base_url();?>js/jquery.sparkline.min.js"></script>
-<script src="<?php echo base_url();?>js/toggles.min.js"></script>
-<script src="<?php echo base_url();?>js/retina.min.js"></script>
-<script src="<?php echo base_url();?>js/jquery.cookies.js"></script>
-<script src="<?php echo base_url();?>js/jquery.validate.min.js"></script>
-<script src="<?php echo base_url();?>js/custom.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery-1.10.2.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/modernizr.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.sparkline.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/toggles.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/retina.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.cookies.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/custom.js"></script>
 
 <script type="text/javascript">
 jQuery("#sasPanel").validate({
-	message: {
-		username : "mohon masukkan username Anda",
-		password : "mohon masukkan password Anda"
-	}
+	messages: {
+		username : "Mohon masukkan username Anda",
+		password : "Mohon masukkan password Anda"
+	},
     highlight: function(element) {
       jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
     },
