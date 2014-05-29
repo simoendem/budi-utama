@@ -4,7 +4,7 @@ class Users extends CI_Controller {
 
 	public function index()
 	{
-		echo "index of users";
+		$this->load->view('404');
 	}
 	
 	function employee(){
