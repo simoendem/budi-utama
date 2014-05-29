@@ -3,8 +3,7 @@
 class Dashboard extends MX_Controller
 {
 	
-	function index(){
-	
+	function index(){	
 		$data['title'] = 'BU | Pinaple SAS Dashboard';
 		$data['main_content'] = 'dashboard';
 		$this->load->view('includes/template', $data);
