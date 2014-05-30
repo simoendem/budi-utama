@@ -28,7 +28,7 @@
       
       <h5 class="sidebartitle">Navigation</h5>
       <ul id="leftsidePanel" class="nav nav-pills nav-stacked nav-bracket">
-        <li class="dashboard active"><a href="<?php echo base_url();?>dashboard"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+        <li class="dashboard active"><a href="<?php echo base_url();?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
         <li class="nav-parent users-setup"><a href="#"><i class="fa fa-users"></i> <span>Users Setup</span></a>
           <ul class="children">
             <li class="employee"><a href="<?php echo base_url();?>user/employee"><i class="fa fa-caret-right"></i> Employee</a></li>
