@@ -54,7 +54,7 @@
             
             <div class="col-md-5">
                 
-                <form id="sasPanel" method="post" action="<?php echo base_url();?>dashboard">
+                <form id="sasPanel" method="post" action="<?php echo base_url().$form_action?>">
                     <h4 class="nomargin">Sign In</h4>
                     <p class="mt5 mb20">Login to access your account.</p>
 					<div class="form-group">
@@ -99,8 +99,8 @@
 <script type="text/javascript">
 jQuery("#sasPanel").validate({
 	messages: {
-		username : "Mohon masukkan username Anda",
-		password : "Mohon masukkan password Anda"
+		username : "Username required.",
+		password : "Password required."
 	},
     highlight: function(element) {
       jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
