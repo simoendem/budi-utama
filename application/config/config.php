@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://local.pinaple-sas.com/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -368,6 +368,10 @@ author : jojo
 $config['modules_locations'] = array(
     APPPATH.'modules_core/' => '../modules_core/',
 );
+
+/* PORTAL */
+$config['portal_admin'] = 1;
+$config['portal_operator'] = 2;
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
