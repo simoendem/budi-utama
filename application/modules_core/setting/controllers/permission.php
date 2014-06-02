@@ -20,6 +20,7 @@ class Permission extends Admin_base {
 		// user_auth
 		$this->check_auth('R');
 
+		$data['message'] = $this->session->flashdata('message');
 		// menu
 		$data['menu'] = $this->menu();
 		// user detail
@@ -48,8 +49,9 @@ class Permission extends Admin_base {
 		// get menu list
 		$data['rs_menu'] = $this->m_menu->get_all_menu_by_portal_role(array($role_slug, $role_slug, $data['result']['portal_id']));
 		// load template
-		$data['layout'] = "setting/permission/edit";
-		$this->load->view('base/admin/template', $data);
+		$data['title']	= "Edit Permission PinapleSAS";
+		$data['main_content'] = "setting/permission/edit";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// edit process
@@ -66,7 +68,7 @@ class Permission extends Admin_base {
 				$data['message'] = "Permission successfully granted";
 			}
 			$this->session->set_flashdata($data);
-			redirect('setting/permission/edit/' . $this->input->post('role_id'));
+			redirect('setting/permission');
 		} else {
 			$data = array(
 				'message'	=> str_replace("\n", "", validation_errors())

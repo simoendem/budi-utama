@@ -12,12 +12,21 @@
     </div>
         
     <div class="contentpanel">
+
+      <?php if ($message != null ) : ?>
+      <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Well done!</strong>   <?php echo $message; ?>
+        </div>
+      <?php endif ; ?>
+
       
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Manage User Role</h3>
           <p>
-        Don't Touch this data unless you're confident. 
+            Please Don't Touch this data unless you're confident. <br><br>
+            <a href="<?php echo base_url(); ?>setting/role/add" data-title="Add Data" class="tip"><i class="fa fa-plus"></i> Add new role</a>
           </p>
         </div>
         <div class="panel-body">

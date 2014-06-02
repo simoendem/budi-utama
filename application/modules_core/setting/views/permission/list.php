@@ -12,6 +12,13 @@
     </div>
         
     <div class="contentpanel">
+
+      <?php if ($message != null ) : ?>
+      <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Well done!</strong>   <?php echo $message; ?>
+        </div>
+      <?php endif ; ?>
       
       <div class="panel panel-default">
         <div class="panel-heading">

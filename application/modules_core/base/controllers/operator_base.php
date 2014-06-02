@@ -65,7 +65,7 @@ class Operator_base extends CI_Controller {
 		if (!empty($session)) {
 			$this->user = $session;
 		} else {
-			redirect('login/operatorlogin');
+			redirect('login/operator');
 		}
 	}
 

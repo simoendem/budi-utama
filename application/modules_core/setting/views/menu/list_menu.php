@@ -1,28 +1,30 @@
-				<!-- Main window -->
-				<div class="main_container" id="tables_page">
+    <div class="pageheader">
+      <h2><i class="fa fa-group"></i> Manage Menu </h2>
+      <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
+          <li><a href="<?php echo base_url();?>setting/menu">Manage Menu</a></li>
+          <li class="active">Manage Menu : <?= $portal['portal_name']; ?></li>
+        </ol>
+      </div>
+    </div>
+        
+    <div class="contentpanel">
+      
 
-		            <div class="row-fluid">
-		                <ul class="breadcrumb">
-		                    <li><a>Management Menu</a> <span class="divider">/</span></li>
-                            <li><a href="<?php echo base_url(); ?>setting/menu">Portal List</a> <span class="divider">/</span></li>
-		                    <li class="active">Menu List</li>
-		                </ul>
-		            </div>
 
-		            <div class="row-fluid">
-		                <div class="widget widget-padding span12">
-		                    <div class="widget-header">
-		                        <i class="icon-group"></i>
-		                        <h5>Menu List</h5>
-
-		                        <div class="widget-buttons">
-		                            <a href="<?php echo base_url(); ?>setting/menu/add/<?php echo $portal['portal_slug']; ?>" data-title="Add Data" class="tip"><i class="icon-plus"></i></a>
-		                            <a data-title="Collapse" data-collapsed="false" class="tip collapse"><i class="icon-chevron-up"></i></a>
-		                        </div>
-		                    </div>
-
-		                    <div class="widget-body">
-		                        <table id="users" class="table table-striped table-bordered dataTable">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Manage Menu : <?= $portal['portal_name']; ?></h3>
+          <p>
+		        Don't Touch this data unless you're confident. <br><br>
+	            <a href="<?php echo base_url(); ?>setting/menu/add/<?php echo $portal['portal_slug']; ?>" data-title="Add Data" class="tip"><i class="fa fa-plus"></i> Add new menu</a>
+          </p>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table" id="table1">
 		                            <thead>
 		                                <tr>
 		                                    <th>#</th>
@@ -40,8 +42,11 @@
                                         		<td><?php echo $key['menu_desc']; ?></td>
                                         		<td><?php echo $key['menu_order']; ?></td>
                                         		<td>
-                                   					<a class="btn btn-primary btn-small" href="<?php echo base_url(); ?>setting/menu/edit/<?php echo $portal['portal_slug']; ?>/<?php echo $key['menu_slug']; ?>"><i class="menu-edit"></i> Edit</a>
-                                   					<a class="btn btn-primary btn-small" href="<?php echo base_url(); ?>setting/menu/delete/<?php echo $portal['portal_slug']; ?>/<?php echo $key['menu_slug']; ?>"><i class="menu-edit"></i> Delete</a>
+                                               <a href="<?php echo base_url(); ?>setting/menu/edit/<?php echo $portal['portal_slug']; ?>/<?php echo $key['menu_slug']; ?>">
+                                                <i class="fa fa-pencil"></i></a>
+                                                &nbsp;&nbsp;
+                                               <a href="<?php echo base_url(); ?>setting/menu/delete/<?php echo $portal['portal_slug']; ?>/<?php echo $key['menu_slug']; ?>">
+                                                <i class="fa fa-trash-o"></i></a>
                                         		</td>
                                         	</tr>
                                             <?php if (!empty($key['detail'])) : ?>
@@ -52,23 +57,50 @@
 		                                        		<td><?php echo $value['menu_desc']; ?></td>
 		                                        		<td><?php echo $value['menu_order']; ?></td>
 		                                        		<td>
-		                                        			<a class="btn btn-primary btn-small" href="<?php echo base_url(); ?>setting/menu/edit/<?php echo $portal['portal_slug']; ?>/<?php echo $value['menu_slug']; ?>"><i class="menu-edit"></i> Edit</a>
-		                                        			<a class="btn btn-primary btn-small" href="<?php echo base_url(); ?>setting/menu/delete/<?php echo $portal['portal_slug']; ?>/<?php echo $value['menu_slug']; ?>"><i class="menu-edit"></i> Delete</a>
+                                               <a href="<?php echo base_url(); ?>setting/menu/edit/<?php echo $portal['portal_slug']; ?>/<?php echo $value['menu_slug']; ?>">
+                                                <i class="fa fa-pencil"></i></a>
+                                                &nbsp;&nbsp;
+                                               <a href="<?php echo base_url(); ?>setting/menu/delete/<?php echo $portal['portal_slug']; ?>/<?php echo $value['menu_slug']; ?>">
+                                                <i class="fa fa-trash-o"></i></a>
 		                                        		</td>
 		                                        	</tr>
                                                 <?php endforeach ; ?>
                                             <?php endif ; ?>
                                         <?php $no++; endforeach ; ?>
 		                            </tbody>
-		                        </table>
-		                    </div> <!-- /widget-body -->
-		                </div> <!-- /widget -->
-		            </div> <!-- /row-fluid -->
+           </table>
+          </div><!-- table-responsive -->
+          <div class="clearfix mb30"></div>
+        </div><!-- panel-body -->
+      </div><!-- panel -->
+        
+    </div><!-- contentpanel -->
+    
+<script src="<?php echo base_url();?>bracket/js/jquery-1.10.2.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/modernizr.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.sparkline.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/toggles.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/retina.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.cookies.js"></script>
 
-				</div>
-				<!-- /Main window -->
+<script src="<?php echo base_url()?>bracket/js/jquery.datatables.min.js"></script>
+<script src="<?php echo base_url()?>bracket/js/chosen.jquery.min.js"></script>
 
-			</div>
-			<!--/.fluid-container-->
-		</div>
-		<!-- wrap ends-->
+<script src="<?php echo base_url();?>bracket/js/custom.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    
+    jQuery('#table1').dataTable();
+    
+    // Chosen Select
+    jQuery("select").chosen({
+      'min-width': '100px',
+      'white-space': 'nowrap',
+      disable_search_threshold: 10
+    });
+    
+  
+  });
+</script>

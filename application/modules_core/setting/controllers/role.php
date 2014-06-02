@@ -26,6 +26,7 @@ class Role extends Admin_base {
 		// get role list
 		$data['rs_role'] = $this->m_role->get_all_role();
 		// load template
+		$data['message'] = $this->session->flashdata('message');
 		$data['title']	= "Setup Role PinapleSAS";
 		$data['main_content'] = "setting/role/list";
 		$this->load->view('dashboard/admin/template', $data);
@@ -43,8 +44,9 @@ class Role extends Admin_base {
 		// user detail
 		$data['user'] = $this->user;
 		// load template
-		$data['layout'] = "setting/role/add";
-		$this->load->view('base/admin/template', $data);
+		$data['title']	= "Add Role PinapleSAS";
+		$data['main_content'] = "setting/role/add";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// add process
@@ -63,6 +65,8 @@ class Role extends Admin_base {
 			if ($this->m_role->add_role($params)) {
 				$data['message'] = "Data successfully added";
 			}
+			$this->session->set_flashdata($data);
+			redirect('setting/role');
 		} else {
 			$data = array(
 				'message'			=> str_replace("\n", "", validation_errors()),
@@ -72,9 +76,9 @@ class Role extends Admin_base {
 				'role_default_url'	=> $this->input->post('role_default_url'),
 				'role_st'			=> $this->input->post('role_st')
 			);
+			$this->session->set_flashdata($data);
+			redirect('setting/role/add');
 		}
-		$this->session->set_flashdata($data);
-		redirect('setting/role');
 	}
 
 	// edit
@@ -91,8 +95,9 @@ class Role extends Admin_base {
 		// get role list
 		$data['result'] = $this->m_role->get_role_by_slug($role_slug);
 		// load template
-		$data['layout'] = "setting/role/edit";
-		$this->load->view('base/admin/template', $data);
+		$data['title']	= "Setup Role PinapleSAS";
+		$data['main_content'] = "setting/role/edit";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// edit process
@@ -139,8 +144,9 @@ class Role extends Admin_base {
 		// get role list
 		$data['result'] = $this->m_role->get_role_by_slug($role_slug);
 		// load template
-		$data['layout'] = "setting/role/delete";
-		$this->load->view('base/admin/template', $data);
+		$data['title']	= "Delete Role PinapleSAS";
+		$data['main_content'] = "setting/role/delete";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// delete process

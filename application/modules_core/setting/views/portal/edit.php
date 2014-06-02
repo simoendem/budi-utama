@@ -5,7 +5,7 @@
         <ol class="breadcrumb">
           <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
           <li><a href="<?php echo base_url();?>setting/portal">Manage Portal</a></li>
-          <li class="active">Setup New Portal</li>
+          <li class="active">Edit Portal</li>
         </ol>
       </div>
     </div>
