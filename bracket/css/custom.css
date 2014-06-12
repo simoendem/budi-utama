@@ -1,0 +1,29 @@
+/* CSS Custom / Overrride */
+
+/* payment page */
+.payment .dataTables_filter input{
+	width: 650px !important;
+}
+.payment tbody tr td:hover{
+	cursor: pointer;
+}
+.payment-details .pay-fines{
+	padding: 5px !important;
+}
+.payment-details td.totals, .payment-details td.price, .payment-details .right, .float-right{
+	text-align: right;
+}
+.payment-details td.totals, .payment-details td.totals-value{
+	font-weight: bold;
+	color: #000;
+}
+.float-right{
+	float: right;
+}
+.center-panel{
+	margin: 0 auto;
+}
+.select-bank{
+	margin-top: 10px;
+}
+/* end payment page */
