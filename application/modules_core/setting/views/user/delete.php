@@ -1,99 +1,94 @@
-                <!-- Main window -->
-                <div class="main_container" id="tables_page">
-
-                    <div class="row-fluid">
-                        <ul class="breadcrumb">
-                            <li><a>Management User</a> <span class="divider">/</span></li>
-                            <li><a href="<?php echo base_url(); ?>setting/user">User List</a> <span class="divider">/</span></li>
-                            <li class="active">Delete</li>
-                        </ul>
-                    </div>
-
-                    <div class="row-fluid">
-                        <div class="widget widget-padding span12">
-                            <form class="form-horizontal" method="POST" action="<?php echo base_url(); ?>setting/user/delete_process" enctype="multipart/form-data" onsubmit="return confirm('Do you want to delete the following data?')">
-                                <input type="hidden" name="user_id" value="<?php echo $user['user_id'] ?>">
-                                <input type="hidden" name="users_id" value="<?php echo $result['user_id'] ?>">
-                                <div class="widget-header">
-                                    <i class="icon-list-alt"></i><h5>Delete User</h5>
-                                    <div class="widget-buttons">
-                                        <a data-title="Collapse" data-collapsed="false" class="tip collapse"><i class="icon-chevron-up"></i></a>
-                                    </div>
-                                </div>
-                                <div class="widget-header">
-                                    <i></i><h5>Profile</h5>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-forms clearfix">
-                                        <div class="control-group">
-                                            <label class="control-label">Name</label>
-                                            <div class="controls">
-                                                <input name="user_full_name" class="span5" maxlength="100" type="text" value="<?php echo $result['user_full_name']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Address</label>
-                                            <div class="controls">
-                                                <input name="user_address" class="span6" maxlength="255" type="text" value="<?php echo $result['user_address']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Birthday</label>
-                                            <div class="controls">
-                                                <input name="user_birthday" class="span3" maxlength="100" type="date" value="<?php echo $result['user_birthday']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Number</label>
-                                            <div class="controls">
-                                                <input name="user_contact" class="span3" maxlength="25" type="text" value="<?php echo $result['user_contact']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label"></label>
-                                            <div class="controls">
-                                                <img src="<?php echo base_url(); ?>resource/doc/user/thumb/<?php echo $result['user_picture']; ?>" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="widget-header">
-                                    <i></i><h5>Account</h5>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-forms clearfix">
-                                        <div class="control-group">
-                                            <label class="control-label">Name</label>
-                                            <div class="controls">
-                                                <input name="user_name" class="span5" maxlength="100" type="text" value="<?php echo $result['user_name']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Email</label>
-                                            <div class="controls">
-                                                <input name="user_email" class="span5" maxlength="255" type="text" value="<?php echo $result['user_email']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Status</label>
-                                            <div class="controls">
-                                                <input name="user_st" class="span2" type="text" value="<?php echo $result['user_st']; ?>" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="widget-footer">
-                                    <button class="btn btn-primary" type="submit">Save</button>
-                                    <button class="btn" type="reset">Reset</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /Main window -->
-
-            </div>
-            <!--/.fluid-container-->
+    <div class="pageheader">
+      <h2><i class="fa fa-group"></i> Manage User</h2>
+      <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
+          <li><a href="<?php echo base_url();?>setting/user">Manage User</a></li>
+          <li class="active">Delete User</li>
+        </ol>
+      </div>
+    </div>
+        
+    <div class="contentpanel">
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-btns">
+            <a href="#" class="panel-close">&times;</a>
+            <a href="#" class="minimize">&minus;</a>
+          </div>
+          <h4 class="panel-title">Delete Portal</h4>
+          <p>Delete portal area</p>
         </div>
-        <!-- wrap ends-->
+        <div class="panel-body panel-body-nopadding">
+
+
+
+        <form class="form-horizontal form-bordered" method="POST" action="<?php echo base_url(); ?>setting/user/delete_process" enctype="multipart/form-data" onsubmit="return confirm('Do you want to delete the following data?')">
+            <input type="hidden" name="user_id" value="<?php echo $user['user_id'] ?>">
+            <input type="hidden" name="users_id" value="<?php echo $result['user_id'] ?>">
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Name</label>
+              <div class="col-sm-7">
+                <input name="user_name" class="form-control" maxlength="100" type="text" value="<?php echo $result['user_name']; ?>" disabled />
+                <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Address</label>
+              <div class="col-sm-7">
+                <input name="user_email" class="form-control" maxlength="100" type="text" value="<?php echo $result['user_email']; ?>" disabled />
+                <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-7">
+                <input name="user_st" class="form-control" maxlength="100" type="text" value="<?php echo $result['user_st']; ?>" disabled />
+                <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
+              </div>
+            </div>
+          
+        </div><!-- panel-body -->
+        
+        <div class="panel-footer">
+             <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                  <button class="btn btn-warning">Delete</button>&nbsp;
+                  <a href="<?php echo base_url() ?>setting/portal" class="btn btn-default">Cancel</a>
+                </div>
+             </div>
+          </div><!-- panel-footer -->
+
+          </form>
+        
+      </div><!-- panel -->      
+    </div><!-- contentpanel -->
+    
+<script src="<?php echo base_url();?>bracket/js/jquery-1.10.2.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery-ui-1.10.3.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/modernizr.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.sparkline.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/toggles.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/retina.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.cookies.js"></script>
+
+<script src="<?php echo base_url();?>bracket/js/jquery.autogrow-textarea.js"></script>
+<script src="<?php echo base_url();?>bracket/js/bootstrap-fileupload.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/bootstrap-timepicker.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.maskedinput.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.tagsinput.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/jquery.mousewheel.js"></script>
+<script src="<?php echo base_url();?>bracket/js/chosen.jquery.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/dropzone.min.js"></script>
+<script src="<?php echo base_url();?>bracket/js/colorpicker.js"></script>
+
+
+<script src="<?php echo base_url();?>bracket/js/custom.js"></script>

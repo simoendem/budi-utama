@@ -146,4 +146,14 @@ class m_user extends CI_Model {
         return $this->db->query($sql, $params);
     }
 
+    function delete_user_profile($params) {
+        $sql = "DELETE FROM my_user WHERE user_id = ?";
+        return $this->db->query($sql, $params);
+    }
+
+    function delete_user_role($params) {
+        $sql = "DELETE FROM my_role_user WHERE user_id = ?";
+        return $this->db->query($sql, $params);
+    }
+
 }

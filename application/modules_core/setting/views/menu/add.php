@@ -23,6 +23,11 @@
           <p>Add new menu</p>
         </div>
         <form id="sasPanel" class="form-horizontal form-bordered" method="POST" action="<?php echo base_url(); ?>setting/menu/add_process">
+
+                                <input type="hidden" name="user_id" value="<?php echo $user['user_id'] ?>">
+                                <input type="hidden" name="portal_id" value="<?php echo $portal['portal_id'] ?>">
+                                <input type="hidden" name="portal_slug" value="<?php echo $portal['portal_slug'] ?>">
+
         <div class="panel-body panel-body-nopadding">
           
             <div class="form-group">

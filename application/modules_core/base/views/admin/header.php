@@ -56,7 +56,7 @@
 								</li>
 								<li><a title="link to View all Notifications page, no popover in phone view or tablet" href="#"><i class="icon-globe"></i></a>
 								</li> -->
-								<li><a href="login.html"><i class="icon-off"></i></a>
+								<li><a href="<?php echo base_url(); ?>login/adminlogin/logout"><i class="icon-off"></i> Logout</a>
 								</li>
 							</ul>
 						</div>

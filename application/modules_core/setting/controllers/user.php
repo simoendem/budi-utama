@@ -26,6 +26,7 @@ class User extends Admin_base {
 		// get user list
 		$data['rs_user'] = $this->m_user->get_all_user();
 		// load template
+		$data['message'] = $this->session->flashdata('message');
 		$data['title']		  = "Setup User PinapleSAS";
 		$data['main_content'] = "setting/user/list";
 		$this->load->view('dashboard/admin/template', $data);
@@ -43,8 +44,9 @@ class User extends Admin_base {
 		// user detail
 		$data['user'] = $this->user;
 		// load template
-		$data['layout'] = "setting/user/add";
-		$this->load->view('base/admin/template', $data);
+		$data['title']		  = "Setup User PinapleSAS";
+		$data['main_content'] = "setting/user/add";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// add process
@@ -61,6 +63,8 @@ class User extends Admin_base {
 		if ($this->form_validation->run() == TRUE) {
 			// insert
 			$params = array($this->input->post('user_full_name'), $this->input->post('user_address'), $this->input->post('user_birthday'), $this->input->post('user_contact'), $this->input->post('user_id'));
+
+
 			if ($this->m_user->add_user_profile($params)) {
 				// get last inserted id
 				$last_id = $this->m_user->get_last_inserted_id();
@@ -69,6 +73,8 @@ class User extends Admin_base {
 				$this->m_user->add_user($params);
 				// insert role user
 				$this->m_user->add_role_user(array($this->input->post('role_id'), $last_id));
+
+				echo "berhasil";
 				// if user upload file
 				if ($_FILES['userfile']['error'] != 4) {
 					// file upload
@@ -130,8 +136,9 @@ class User extends Admin_base {
 		// get user list
 		$data['result'] = $this->m_user->get_user_by_slug($user_slug);
 		// load template
-		$data['layout'] = "setting/user/edit_profile";
-		$this->load->view('base/admin/template', $data);
+		$data['title']	= "Edit User PinapleSAS";
+		$data['main_content'] = "setting/user/edit_profile";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// edit process
@@ -181,7 +188,7 @@ class User extends Admin_base {
 				}
 			}
 			$this->session->set_flashdata($data);
-			redirect('setting/user/edit_profile/' . $this->input->post('users_id'));
+			redirect('setting/user');
 		} else {
 			$data = array(
 				'message'			=> str_replace("\n", "", validation_errors()),
@@ -210,8 +217,9 @@ class User extends Admin_base {
 		// get user list
 		$data['result'] = $this->m_user->get_user_by_slug($user_slug);
 		// load template
-		$data['layout'] = "setting/user/edit_account";
-		$this->load->view('base/admin/template', $data);
+		$data['title']	= "Edit User PinapleSAS";
+		$data['main_content'] = "setting/user/edit_account";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// edit process
@@ -257,7 +265,7 @@ class User extends Admin_base {
 				$data['message'] = "Data successfully edited";
 			}
 			$this->session->set_flashdata($data);
-			redirect('setting/user/edit_account/' . $this->input->post('users_id'));
+			redirect('setting/user');
 		} else {
 			$data = array(
 				'message'		=> str_replace("\n", "", validation_errors()),
@@ -283,8 +291,9 @@ class User extends Admin_base {
 		// get user list
 		$data['result'] = $this->m_user->get_user_by_slug($user_slug);
 		// load template
-		$data['layout'] = "setting/user/edit_password";
-		$this->load->view('base/admin/template', $data);
+		$data['title'] = "Setting Password User PinapleSAS";
+		$data['main_content'] = "setting/user/edit_password";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// edit process
@@ -330,8 +339,9 @@ class User extends Admin_base {
 		// get user list
 		$data['result'] = $this->m_user->get_user_by_slug($user_slug);
 		// load template
-		$data['layout'] = "setting/user/delete";
-		$this->load->view('base/admin/template', $data);
+		$data['title'] = "Setting User PinapleSAS";
+		$data['main_content'] = "setting/user/delete";
+		$this->load->view('dashboard/admin/template', $data);
 	}
 
 	// delete process
@@ -344,6 +354,8 @@ class User extends Admin_base {
 			// insert
 			$params = array($this->input->post('users_id'));
 			if ($this->m_user->delete_user($params)) {
+				$this->m_user->delete_user_role($params);
+				$this->m_user->delete_user_profile($params);
 				$data['message'] = "Data successfully deleted";
 				// unlink image and thumbnail
 				unlink('resource/doc/user/' . $this->input->post('users_id') . '.jpg');

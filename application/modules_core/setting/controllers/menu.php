@@ -48,6 +48,10 @@ class Menu extends Admin_base {
 		// echo '<pre>'; print_r($data['portal']); die;
 		// get menu by portal
 		$data['rs_menu']			= $this->m_menu->get_all_menu_by_portal($data['portal']['portal_id']);
+
+
+		$data['message'] = $this->session->flashdata('message');
+
 		// load template
 		$data['title']	= "Setting Menu Pinaple Sas";
 		$data['main_content'] = "setting/menu/list_menu";
@@ -82,7 +86,7 @@ class Menu extends Admin_base {
 		$this->form_validation->set_rules('user_id', '', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('portal_id', '', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('menu_name', 'Name', 'required|trim|xss_clean|max_length[100]');
-		$this->form_validation->set_rules('menu_desc', 'Description', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('menu_desc', 'Description', 'trim|xss_clean');
 		$this->form_validation->set_rules('menu_url', 'Url', 'required|trim|xss_clean|max_length[100]');
 		$this->form_validation->set_rules('menu_order', 'Order', 'required|trim|xss_clean|max_length[100]');
 		$this->form_validation->set_rules('menu_icon', 'Icon', 'required|trim|xss_clean|max_length[100]');
@@ -105,6 +109,7 @@ class Menu extends Admin_base {
 				'menu_icon'		=> $this->input->post('menu_icon'),
 			);
 		}
+
 		$this->session->set_flashdata($data);
 		redirect('setting/menu/add/' . $this->input->post('portal_slug'));
 	}
@@ -139,10 +144,12 @@ class Menu extends Admin_base {
 	// edit process
 	public function edit_process() {
 		// form validation
+		// echo $this->input->post('menu_id');die;
+
 		$this->form_validation->set_rules('user_id', '', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('menu_id', '', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('menu_name', 'Name', 'required|trim|xss_clean|max_length[100]');
-		$this->form_validation->set_rules('menu_desc', 'Description', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('menu_desc', 'Description', 'trim|xss_clean');
 		$this->form_validation->set_rules('menu_url', 'Url', 'required|trim|xss_clean|max_length[100]');
 		$this->form_validation->set_rules('menu_order', 'Order', 'required|trim|xss_clean|max_length[100]');
 		$this->form_validation->set_rules('menu_icon', 'Icon', 'required|trim|xss_clean|max_length[100]');
@@ -156,7 +163,7 @@ class Menu extends Admin_base {
 			$this->session->set_flashdata($data);
 			redirect('setting/menu/list_menu/' . $this->input->post('portal_slug'));
 		} else {
-			$data = array(
+			$data['message'] = array(
 				'message'		=> str_replace("\n", "", validation_errors()),
 				'menu_name'		=> $this->input->post('menu_name'),
 				'menu_desc'		=> $this->input->post('menu_desc'),
