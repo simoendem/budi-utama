@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="<?php echo base_url();?>bracket/css/jquery.tagsinput.css" />
   <link rel="stylesheet" href="<?php echo base_url();?>bracket/css/colorpicker.css" />
   <link rel="stylesheet" href="<?php echo base_url();?>bracket/css/dropzone.css" />
+  <link rel="stylesheet" href="<?php echo base_url();?>bracket/css/custom.css" />
 
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
