@@ -163,4 +163,10 @@ class m_menu extends CI_Model {
         return $this->db->query($sql, $params);
     }
 
+    // delete menu
+    function delete_menu_permission($params) {
+        $sql = "DELETE FROM my_permission WHERE menu_id = ?";
+        return $this->db->query($sql, $params);
+    }
+
 }

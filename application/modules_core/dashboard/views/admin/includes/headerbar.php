@@ -13,7 +13,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                <li><a href="<?php echo base_url(); ?>login/adminlogin/logout"><i class="icon-off"></i> Logout</a>
+                <li><a href="<?php echo base_url(); ?>login/admin/logout"><i class="icon-off"></i> Logout</a>
                 </li>
           </ul>
         </div>

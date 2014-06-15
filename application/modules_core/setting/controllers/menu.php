@@ -215,6 +215,7 @@ class Menu extends Admin_base {
 			// insert
 			$params = array($this->input->post('menu_id'));
 			if ($this->m_menu->delete_menu($params)) {
+				$this->m_menu->delete_menu_permission($params);
 				$data['message'] = "Data successfully deleted";
 			}
 			$this->session->set_flashdata($data);
