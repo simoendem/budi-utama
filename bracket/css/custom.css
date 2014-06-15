@@ -1,5 +1,10 @@
 /* CSS Custom / Overrride */
 
+/* Registration */
+#validationWizard .tab-content{
+	padding: 35px 15px 15px 15px;
+}
+
 /* payment page */
 .payment .dataTables_filter input{
 	width: 650px !important;
