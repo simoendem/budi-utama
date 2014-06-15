@@ -54,28 +54,44 @@ class Guru_karyawan extends Admin_base {
 	public function add_process() {
 		// form validation
 		//$this->form_validation->set_rules('user_id', '', 'required|trim|xss_clean');
-		$this->form_validation->set_rules('tahun_ajaran', 'Tahun Ajaran', 'required|trim|xss_clean|callback_check_tahun_ajaran');
-		$this->form_validation->set_rules('mulai', 'Mulai', 'required|trim|xss_clean|max_length[10]');
-		$this->form_validation->set_rules('akhir', 'Akhir', 'required|trim|xss_clean|max_length[10]|callback_check_less['.$this->input->post('mulai').']');
-		$this->form_validation->set_rules('status', 'Status', 'required|trim|xss_clean|callback_check_status');
+		$this->form_validation->set_rules('nik', 'NIK', 'required|trim|xss_clean|callback_check_nik');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('warga_negara', 'Kewarganegaraan', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|xss_clean');
 
 		if ($this->form_validation->run() == TRUE) {
 			// insert
-			$this->m_tahun_ajaran->add_tahun_ajaran($this->input->post());
+			$this->m_guru_karyawan->add_ugk($this->input->post());
 			$data['message'] = "Data successfully added";
 			$this->session->set_flashdata($data);
-			redirect('setting/tahun_ajaran');
+			redirect('setting/guru_karyawan');
 		} else {
 			$data = array(
 				'message'		=> str_replace("\n", "", validation_errors()),
-				'tahun_ajaran'	=> $this->input->post('tahun_ajaran'),
-				'mulai'			=> $this->input->post('mulai'),
-				'akhir'			=> $this->input->post('akhir'),
-				'status'		=> $this->input->post('status'),
-				'keterangan'	=> $this->input->post('keterangan')
+				'nik'			=> $this->input->post('nik'),
+				'nama_lengkap'	=> $this->input->post('nama_lengkap'),
+				'nama_panggilan'=> $this->input->post('nama_panggilan'),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'tempat_lahir'	=> $this->input->post('tempat_lahir'),
+				'tanggal_lahir'	=> $this->input->post('tanggal_lahir'),
+				'alamat'		=> $this->input->post('alamat'),
+				'kota'			=> $this->input->post('kota'),
+				'kode_pos'		=> $this->input->post('kode_pos'),
+				'agama'			=> $this->input->post('agama'),
+				'warga_negara'	=> $this->input->post('warga_negara'),
+				'telpon_hp'		=> $this->input->post('telpon_hp'),
+				'telpon_rumah'	=> $this->input->post('telpon_rumah'),
+				'email'			=> $this->input->post('email'),
+				'jabatan'		=> $this->input->post('jabatan'),
+				'golongan'		=> $this->input->post('golongan'),
+				//'foto'			=> $this->input->post('foto'),
+				'tgl_mulai'		=> $this->input->post('tgl_mulai'),
+				'tgl_keluar'	=> $this->input->post('tgl_keluar'),
+				'keterangan_keluar'	=> $this->input->post('keterangan_keluar')
 			);
 			$this->session->set_flashdata($data);
-			redirect('setting/tahun_ajaran/add');
+			redirect('setting/guru_karyawan/add');
 		}
 	}
 
@@ -102,36 +118,53 @@ class Guru_karyawan extends Admin_base {
 
 	// edit process
 	public function edit_process() {
-		$this->form_validation->set_rules('tahun_ajaran', 'Tahun Ajaran', 'required|trim|xss_clean|callback_check_tahun_ajaran');
-		$this->form_validation->set_rules('mulai', 'Mulai', 'required|trim|xss_clean|max_length[10]');
-		$this->form_validation->set_rules('akhir', 'Akhir', 'required|trim|xss_clean|max_length[10]|callback_check_less['.$this->input->post('mulai').']');
-		$this->form_validation->set_rules('status', 'Status', 'required|trim|xss_clean|callback_check_status');
+		// form validation
+		$this->form_validation->set_rules('nik', 'NIK', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('warga_negara', 'Kewarganegaraan', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|xss_clean');
 
 		if ($this->form_validation->run() == TRUE) {
 			// insert
-			$this->m_tahun_ajaran->edit_tahun_ajaran($this->input->post());
-			$data['message'] = "Data successfully edited";
+			$this->m_guru_karyawan->edit_ugk($this->input->post());
+			$data['message'] = "Data successfully added";
 			$this->session->set_flashdata($data);
-			redirect('setting/tahun_ajaran');
+			redirect('setting/guru_karyawan');
 		} else {
 			$data = array(
 				'message'		=> str_replace("\n", "", validation_errors()),
-				'tahun_ajaran'	=> $this->input->post('tahun_ajaran'),
-				'mulai'			=> $this->input->post('mulai'),
-				'akhir'			=> $this->input->post('akhir'),
-				'status'		=> $this->input->post('status'),
-				'keterangan'	=> $this->input->post('keterangan')
+				'nik'			=> $this->input->post('nik'),
+				'nama_lengkap'	=> $this->input->post('nama_lengkap'),
+				'nama_panggilan'=> $this->input->post('nama_panggilan'),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'tempat_lahir'	=> $this->input->post('tempat_lahir'),
+				'tanggal_lahir'	=> $this->input->post('tanggal_lahir'),
+				'alamat'		=> $this->input->post('alamat'),
+				'kota'			=> $this->input->post('kota'),
+				'kode_pos'		=> $this->input->post('kode_pos'),
+				'agama'			=> $this->input->post('agama'),
+				'warga_negara'	=> $this->input->post('warga_negara'),
+				'telpon_hp'		=> $this->input->post('telpon_hp'),
+				'telpon_rumah'	=> $this->input->post('telpon_rumah'),
+				'email'			=> $this->input->post('email'),
+				'jabatan'		=> $this->input->post('jabatan'),
+				'golongan'		=> $this->input->post('golongan'),
+				//'foto'			=> $this->input->post('foto'),
+				'tgl_mulai'		=> $this->input->post('tgl_mulai'),
+				'tgl_keluar'	=> $this->input->post('tgl_keluar'),
+				'keterangan_keluar'	=> $this->input->post('keterangan_keluar')
 			);
 			$this->session->set_flashdata($data);
-			redirect('setting/tahun_ajaran/edit/'.$this->input->post('id'));
+			redirect('setting/guru_karyawan/edit/'.$this->input->post('nik'));
 		}
 	}
 
-	public function check_id_ugk($id)
+	public function check_nik($id)
 	{
 		$cek=$this->m_guru_karyawan->get_ugk_by_id($id);
 	    if (!empty($cek)){
-			$this->form_validation->set_message('check_id_ugk', 'ID Guru & Karyawan is already used');
+			$this->form_validation->set_message('check_nik', 'NIK Guru & Karyawan is already used');
 			return false;       
 		}
 		else{

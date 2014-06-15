@@ -59,6 +59,7 @@ class Unit extends Admin_base {
 		$this->form_validation->set_rules('unit', 'Nama Unit', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('jenjang', 'Jenjang', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('kategori', 'Kategori', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|xss_clean');
 
 		if ($this->form_validation->run() == TRUE) {
 			// insert
@@ -120,6 +121,7 @@ class Unit extends Admin_base {
 		$this->form_validation->set_rules('unit', 'Nama Unit', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('jenjang', 'Jenjang', 'required|trim|xss_clean');
 		$this->form_validation->set_rules('kategori', 'Kategori', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|xss_clean');
 
 		if ($this->form_validation->run() == TRUE) {
 			// insert

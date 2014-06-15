@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <form id="sasPanel" class="form-horizontal form-bordered" method="POST" action="<?php echo base_url(); ?>setting/guru_karyawan/add_process" enctype="multipart/form-data">
+    <form id="sasPanel" class="form-horizontal form-bordered" method="POST" action="<?php echo base_url(); ?>setting/guru_karyawan/edit_process" enctype="multipart/form-data">
     
     <div class="contentpanel">
 
@@ -35,21 +35,22 @@
            <div class="form-group">
               <label class="col-sm-3 control-label">NIK *</label>
               <div class="col-sm-2">
-                <input name="nik" class="form-control" maxlength="20" type="text" value="<?php echo $this->session->flashdata('nik'); ?>" required />
+                <input class="form-control" maxlength="20" type="text" value="<?php echo $result->nik; ?>" disabled/>
+                <input name="nik" class="form-control" maxlength="20" type="hidden" value="<?php echo $result->nik; ?>" required />
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">Nama Lengkap *</label>
               <div class="col-sm-4">
-                <input name="nama_lengkap" class="form-control" maxlength="50" type="text" value="<?php echo $this->session->flashdata('nama_lengkap'); ?>" required />
+                <input name="nama_lengkap" class="form-control" maxlength="50" type="text" value="<?php echo  $result->nama_lengkap; ?>" required />
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">Nama Panggilan</label>
               <div class="col-sm-2">
-                <input name="nama_panggilan" class="form-control" maxlength="20" type="text" value="<?php echo $this->session->flashdata('nama_panggilan'); ?>" />
+                <input name="nama_panggilan" class="form-control" maxlength="20" type="text" value="<?php echo  $result->nama_panggilan; ?>" />
               </div>
             </div>
 
@@ -58,8 +59,8 @@
               <div class="col-sm-2">
                 <select class="form-control input-sm mb15" name="jenis_kelamin" required>
                     <option value="">-- SELECT --</option>
-                    <option value="L">Laki-Laki</option>
-                    <option value="P">Perempuan</option>
+                    <option value="L" <?php if($result->jenis_kelamin=="L"){ echo "selected='selected'"; }?> >Laki-Laki</option>
+                    <option value="P" <?php if($result->jenis_kelamin=="P"){ echo "selected='selected'"; }?> >Perempuan</option>
                 </select>
               </div>
             </div>
@@ -67,15 +68,16 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Tempat Lahir</label>
               <div class="col-sm-3">
-                <input name="tempat_lahir" type="text" class="form-control" maxlength="30" value="<?php echo $this->session->flashdata('tempat_lahir');?>"/>
+                <input name="tempat_lahir" type="text" class="form-control" maxlength="30" value="<?php echo  $result->tempat_lahir;?>"/>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">Tanggal Lahir</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_lahir" />
-                <input type="hidden" name="tanggal_lahir" id="h_lahir" value="<?php echo $this->session->flashdata('tanggal_lahir');?>">
+                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_lahir"
+                value="<?php echo date("d-m-Y",strtotime($result->tanggal_lahir));?>" />
+                <input type="hidden" name="tanggal_lahir" id="h_lahir" value="<?php echo $result->tanggal_lahir; ?>">
                 <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
               </div>
             </div>
@@ -83,7 +85,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Agama</label>
               <div class="col-sm-2">
-                <input name="agama" type="text" class="form-control" maxlength="15" value="<?php echo $this->session->flashdata('agama');?>"/>
+                <input name="agama" type="text" class="form-control" maxlength="15" value="<?php echo  $result->agama;?>"/>
               </div>
             </div>
 
@@ -92,8 +94,8 @@
               <div class="col-sm-2">
                 <select class="form-control input-sm mb15" name="warga_negara" required>
                     <option value="">-- SELECT --</option>
-                    <option value="WNI">WNI</option>
-                    <option value="WNA">WNA</option>
+                    <option value="WNI" <?php if($result->warga_negara=="WNI"){ echo "selected='selected'"; }?> >WNI</option>
+                    <option value="WNA" <?php if($result->warga_negara=="WNA"){ echo "selected='selected'"; }?> >WNA</option>
                 </select>
               </div>
             </div>
@@ -101,21 +103,21 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Telpon HP</label>
               <div class="col-sm-3">
-                <input name="telpon_hp" type="text" class="form-control" maxlength="15" value="<?php echo $this->session->flashdata('telpon_hp');?>"/>
+                <input name="telpon_hp" type="text" class="form-control" maxlength="15" value="<?php echo $result->telpon_hp;?>"/>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">Telpon Rumah</label>
               <div class="col-sm-3">
-                <input name="telpon_rumah" type="text" class="form-control" maxlength="15" value="<?php echo $this->session->flashdata('telpon_rumah');?>"/>
+                <input name="telpon_rumah" type="text" class="form-control" maxlength="15" value="<?php echo $result->telpon_rumah;?>"/>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">Email</label>
               <div class="col-sm-4">
-                <input name="email" type="text" class="form-control" maxlength="50" value="<?php echo $this->session->flashdata('email');?>"/>
+                <input name="email" type="text" class="form-control" maxlength="50" value="<?php echo $result->email;?>"/>
               </div>
             </div>
 
@@ -157,8 +159,9 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Tanggal Mulai *</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_mulai" />
-                <input type="hidden" name="tgl_mulai" id="h_mulai" value="<?php echo $this->session->flashdata('tgl_mulai');?>">
+                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_mulai" 
+                value="<?php echo date("d-m-Y",strtotime($result->tgl_mulai));?>" />
+                <input type="hidden" name="tgl_mulai" id="h_mulai" value="<?php echo $result->tgl_mulai;?>">
                 <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
               </div>
             </div>
@@ -166,8 +169,9 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Tanggal Keluar</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_keluar" />
-                <input type="hidden" name="tgl_keluar" id="h_keluar" value="<?php echo $this->session->flashdata('tgl_keluar');?>">
+                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_keluar" 
+                value="<?php echo date("d-m-Y",strtotime($result->tgl_keluar));?>"/>
+                <input type="hidden" name="tgl_keluar" id="h_keluar" value="<?php echo $result->tgl_keluar;?>">
                 <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
               </div>
             </div>
@@ -175,7 +179,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Keterangan Keluar</label>
               <div class="col-sm-7 panel-body">
-                <textarea name="keterangan_keluar" placeholder="Enter text here..." class="form-control" rows="10"><?php echo $this->session->flashdata('keterangan_keluar'); ?></textarea> 
+                <textarea name="keterangan_keluar" placeholder="Enter text here..." class="form-control" rows="10"><?php echo $result->keterangan_keluar; ?></textarea> 
               </div>
             </div>
 
@@ -317,7 +321,7 @@ jQuery(document).ready(function(){
   jQuery('#timepicker').timepicker({defaultTIme: false});
   jQuery('#timepicker2').timepicker({showMeridian: false});
   jQuery('#timepicker3').timepicker({minuteStep: 15});
-
+  
 });
 </script>
 

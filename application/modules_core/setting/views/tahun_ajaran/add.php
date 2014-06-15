@@ -43,8 +43,8 @@
            <div class="form-group">
               <label class="col-sm-3 control-label">Mulai *</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_mulai" value="<?php echo $this->session->flashdata('mulai');?>"/>
-                <input type="hidden" name="mulai" id="h_mulai">
+                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_mulai" required/>
+                <input type="hidden" name="mulai" id="h_mulai" value="<?php echo $this->session->flashdata('mulai');?>">
                 <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
               </div>
             </div>
@@ -52,8 +52,8 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Akhir *</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_akhir" value="<?php echo $this->session->flashdata('akhir');?>"/>
-                <input type="hidden" name="akhir" id="h_akhir">
+                <input type="text" class="form-control" maxlength="10" placeholder="dd/mm/yyyy" id="datepicker_akhir" required/>
+                <input type="hidden" name="akhir" id="h_akhir" value="<?php echo $this->session->flashdata('akhir');?>">
                 <!-- <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
               </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-7 panel-body">
-                <textarea id="wysiwyg" name="keterangan" placeholder="Enter text here..." class="form-control" rows="10"><?php echo $this->session->flashdata('keterangan'); ?></textarea> 
+                <textarea name="keterangan" placeholder="Enter text here..." class="form-control" rows="10"><?php echo $this->session->flashdata('keterangan'); ?></textarea> 
               </div>
             </div>
           
@@ -129,7 +129,7 @@ jQuery("#sasPanel").validate({
   messages: {
     tahun_ajaran : "Tahun Ajaran is required.",
     mulai : "Mulai is required.",    
-    akhir : "Akhir is required."
+    akhir : "Akhir is required.",
     status: "Status is required."
     },
     highlight: function(element) {
@@ -209,12 +209,6 @@ jQuery(document).ready(function(){
   jQuery('#timepicker2').timepicker({showMeridian: false});
   jQuery('#timepicker3').timepicker({minuteStep: 15});
 
-  // HTML5 WYSIWYG Editor
-  jQuery('#wysiwyg').wysihtml5({color:true,html:true});
-  
-  // CKEditor
-  jQuery('#ckeditor').ckeditor();
-  
 });
 </script>
 
