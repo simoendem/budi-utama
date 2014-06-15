@@ -73,7 +73,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-7 panel-body">
-                <textarea id="wysiwyg" name="keterangan" placeholder="Enter text here..." class="form-control" rows="10"><?php echo $result->keterangan; ?></textarea>
+                <textarea name="keterangan" placeholder="Enter text here..." class="form-control" rows="10"><?php echo $result->keterangan; ?></textarea>
               </div>
             </div>
           
@@ -130,7 +130,7 @@ jQuery("#sasPanel").validate({
   messages: {
     tahun_ajaran : "Tahun Ajaran is required.",
     mulai : "Mulai is required.",    
-    akhir : "Akhir is required."
+    akhir : "Akhir is required.",
     status: "Status is required."
     },
     highlight: function(element) {
@@ -208,12 +208,6 @@ jQuery(document).ready(function(){
   jQuery('#timepicker').timepicker({defaultTIme: false});
   jQuery('#timepicker2').timepicker({showMeridian: false});
   jQuery('#timepicker3').timepicker({minuteStep: 15});
-
-  // HTML5 WYSIWYG Editor
-  jQuery('#wysiwyg').wysihtml5({color:true,html:true});
-  
-  // CKEditor
-  jQuery('#ckeditor').ckeditor();
 
 });
 </script>
