@@ -27,7 +27,7 @@
   <![endif]-->
 </head>
 
-<body>
+<body style="overflow:visible;">
 
 <!-- Preloader -->
 <!-- <div id="preloader">
