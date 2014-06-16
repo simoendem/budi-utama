@@ -1,10 +1,15 @@
 /* CSS Custom / Overrride */
-
+.clear-space, /submit-form-regis{
+	clear: both;
+	margin: 30px 0;
+}
 /* Registration */
 #validationWizard .tab-content{
 	padding: 35px 15px 15px 15px;
 }
-
+.tambah-wali{
+	margin-bottom: 30px;
+}
 /* payment page */
 .payment .dataTables_filter input{
 	width: 650px !important;

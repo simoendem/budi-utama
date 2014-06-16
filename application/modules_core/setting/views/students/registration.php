@@ -37,14 +37,14 @@
               <!-- BASIC WIZARD -->
               <div id="validationWizard" class="basic-wizard">
                 
-                <ul class="nav nav-pills nav-justified">
-                  <li><a href="#vtab1" data-toggle="tab"><span>Langkah 1:</span> Informasi Siswa</a></li>
-                  <li><a href="#vtab2" data-toggle="tab"><span>Langkah 2:</span> Informasi Asal Sekolah</a></li>
-                  <li><a href="#vtab3" data-toggle="tab"><span>Langkah 3:</span> Informasi Wali</a></li>
-                  <li><a href="#vtab4" data-toggle="tab"><span>Langkah 4:</span> Prestasi Siswa</a></li>
+                <ul class="nav nav-pills nav-justified" id="form-regis-siswa">
+                  <li class="info-siswa"><a href="#vtab1" data-toggle="tab"><span>Langkah 1:</span> Informasi Siswa</a></li>
+                  <li class="asal-sekolah"><a href="#vtab2" data-toggle="tab"><span>Langkah 2:</span> Informasi Asal Sekolah</a></li>
+                  <li class="info-wali"><a href="#vtab3" data-toggle="tab"><span>Langkah 3:</span> Informasi Wali</a></li>
+                  <li class="prestasi"><a href="#vtab4" data-toggle="tab"><span>Langkah 4:</span> Prestasi Siswa</a></li>
                 </ul>
                 
-                <form class="form" id="regisForm">  
+                <form class="form" id="regisForm" action="">  
                 <div class="tab-content">
 
                   <!--   Informasi Siswa   -->
@@ -174,7 +174,7 @@
 					  	<label class="col-sm-4 control-label">Telepon / Handphone</label>
 					   	<div class="col-sm-4">
 					   		<div class="input-group">
-						   		<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+						   	  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
 							  <input type="text" placeholder="nomor telepon" id="telepon" class="form-control">
 					   		</div>
 					   	</div>
@@ -232,200 +232,251 @@
 				  
 				  <!--   Informasi Wali  -->
                   <div class="tab-pane" id="vtab3">                      
+                                        
 					  <div class="form-group">
-                        <label class="col-sm-4 control-label">Nama Lengkap <span class="asterisk">*</span></label>
+                        <label class="col-sm-4 control-label">Nama Lengkap Ayah <span class="asterisk">*</span></label>
                         <div class="col-sm-8">
-                          <input type="text" name="nama_lengkap_wali" placeholder="nama lengkap wali siswa" class="form-control" required />
+                          <input type="text" name="nama_lengkap_ayah" placeholder="nama lengkap ayah" class="form-control" required />
                         </div>
                       </div>
                       
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">Hubungan dengan siswa <span class="asterisk">*</span></label>
-                        <div class="col-sm-4">
-                          <select class="form-control" required>
-                            <option value="">Pilih salah satu</option>
-                            <option value="bapak">Bapak</option>
-                            <option value="ibu">Ibu</option>
-                            <option value="lainnya">lainnya</option>
-                          </select>
-                          <label class="error" for="relationship"></label>
+					  <div class="form-group">
+                        <label class="col-sm-4 control-label">Nama Lengkap Ibu <span class="asterisk">*</span></label>
+                        <div class="col-sm-8">
+                          <input type="text" name="nama_lengkap_ibu" placeholder="nama lengkap ibu" class="form-control" required />
                         </div>
                       </div>
                       
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">Gender <span class="asterisk">*</span></label>
-                        <div class="col-sm-8">
-                          <div class="rdio rdio-primary">
-                            <input type="radio" id="male_p" value="m" name="gender_parents" required/>
-                            <label for="male_p">Male</label>
-                          </div>
-                          <div class="rdio rdio-primary">
-                            <input type="radio" value="f" id="female_p" name="gender_parents"/>
-                            <label for="female_p">Female</label>
-                          </div>
-                          <label class="error" for="gender_parents"></label>
-                        </div>
-                      </div>                      
-                    
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">Birth Place <span class="asterisk">*</span></label>
+                     <div class="form-group">
+                        <label class="col-sm-4 control-label">Tempat, Tanggal Lahir Ayah</label>
                         <div class="col-sm-4">
-                          <input type="text" name="birth_place_p" class="form-control" required/>
+                          <input type="text" name="tempat_lahir_ayah" placeholder="tempat lahir ayah" class="form-control"/>
                         </div>
-                      </div>  
+                        <div class="col-sm-4">
+                          <input type="text" placeholder="dd/mm/yyyy" name="tgl_lahir_ayah" id="tgl_lahir_ayah" class="form-control">
+                        </div>
+                      </div>                        
+                      
+                     <div class="form-group">
+                        <label class="col-sm-4 control-label">Tempat, Tanggal Lahir Ibu</label>
+                        <div class="col-sm-4">
+                          <input type="text" name="tempat_lahir" placeholder="tempat lahir ibu" class="form-control"/>
+                        </div>
+                        <div class="col-sm-4">
+                          <input type="text" placeholder="dd/mm/yyyy" name="tgl_lahir_ibu" id="tgl_lahir_ibu" class="form-control">
+                        </div>
+                      </div>                        
                       
                       <div class="form-group">
-                        <label class="col-sm-4 control-label">Date of Birth <span class="asterisk">*</span></label>
-                        <div class="col-sm-4">
-							<input type="text" placeholder="dd/mm/yyyy" name="dob_p" id="dobP" class="form-control" required>
-                        </div>
-                      </div>           
-                      
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">Address <span class="asterisk">*</span></label>
+                        <label class="col-sm-4 control-label">Alamat <span class="asterisk">*</span></label>
                         <div class="col-sm-8">
-                          <input type="text" name="address_line1_p" class="form-control" required/>
+                          <input type="text" name="alamat-wali" placeholder="alamat ayah/ibu" class="form-control" required/>
                         </div>                       
                       </div>  
                       
                       <div class="form-group">
-                        <label class="col-sm-4 control-label"></label>
-                        <div class="col-sm-8">
-                          <input type="text" name="address_line2_p" class="form-control"/>
-                        </div>                     
-                      </div>    
-                      
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">City <span class="asterisk">*</span></label>
+                        <label class="col-sm-4 control-label">Kota <span class="asterisk">*</span></label>
                         <div class="col-sm-4">
-                          <input type="text" name="city_p" class="form-control" required/>
+                          <input type="text" id="kota-wali" name="kota_p" placeholder="kota dari alamat ayah/ibu" class="form-control" required/>
                         </div>
-                      </div>                                 
-                    
-					  <div class="form-group">
-		                  <label class="col-sm-4 control-label">Religion</label>
-		                  <div class="col-sm-4">
-		                    <select id="religion_p" class="form-control">
-		                      <option value="">Choose One</option>
-		                      <option value="islam">Islam / Moslem</option>
-		                      <option value="christian">Christian</option>
-		                      <option value="catholic">Catholic</option>
-		                      <option value="hindu">Hindu</option>
-		                      <option value="budha">Budha</option>		                      
-		                    </select>
-		                  </div>
-		                </div>                      
+                      </div>                                                      
                       
                       <div class="form-group">
-                        <label class="col-sm-4 control-label">Citizen <span class="asterisk">*</span></label>
+					  	<label class="col-sm-4 control-label">Telepon / Handphone Ayah</label>
+					   	<div class="col-sm-4">
+					   		<div class="input-group">
+						   		<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+							  <input type="text" name="telpon-ayah" placeholder="nomor telepon ayah" class="form-control">
+					   		</div>
+					   	</div>
+					   	<div class="col-sm-4">
+					   		<div class="input-group">
+						   		<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+						   		<input type="text" name="hp-ayah" placeholder="nomor handphone ayah" class="form-control">
+					   		</div>
+					   	</div>					   	
+					  </div> 					                      					   	
+					  
+                      <div class="form-group">
+					  	<label class="col-sm-4 control-label">Telepon / Handphone Ibu</label>
+					   	<div class="col-sm-4">
+					   		<div class="input-group">
+						   		<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+							  <input type="text" name="telepon-ibu" placeholder="nomor telepon ibu" class="form-control">
+					   		</div>
+					   	</div>
+					   	<div class="col-sm-4">
+					   		<div class="input-group">
+						   		<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+						   		<input type="text" name="hp-ibu" placeholder="nomor handphone ibu" class="form-control">
+					   		</div>
+					   	</div>					   	
+					  </div> 					                      					   						  
+                      
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label">Kewarganegaraan Ayah<span class="asterisk">*</span></label>
                         <div class="col-sm-8">
                           <div class="rdio rdio-primary">
-                            <input type="radio" id="ina_p" value="ina" name="Citizen_p" required/>
-                            <label for="ina_p">Indonesia</label>
+                            <input type="radio" value="Warga Negara Indonesia" id="wniAyah" name="wn-ayah"/>
+                            <label for="wniAyah">Warga Negara Indonesia</label>
                           </div>
                           <div class="rdio rdio-primary">
-                            <input type="radio" value="foreign" id="foreign_p" name="Citizen_p"/>
-                            <label for="foreign_p">Foreigners</label>
+                            <input type="radio" value="Warga Negara Asing" id="wnaAyah" name="wn-ayah"/>
+                            <label for="wnaAyah">Warga Negara Asing</label>
                           </div>
-                          <label class="error" for="Citizen_p"></label>
+                          <label class="error" for="wn-wali"></label>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label">Kewarganegaraan Ibu<span class="asterisk">*</span></label>
+                        <div class="col-sm-8">
+                          <div class="rdio rdio-primary">
+                            <input type="radio" value="Warga Negara Indonesia" id="wniIbu" name="wn-ibu"/>
+                            <label for="wniIbu">Warga Negara Indonesia</label>
+                          </div>
+                          <div class="rdio rdio-primary">
+                            <input type="radio" value="Warga Negara Asing" id="wnaIbu" name="wn-ibu"/>
+                            <label for="wnaIbu">Warga Negara Ibu</label>
+                          </div>
+                          <label class="error" for="wn-wali"></label>
                         </div>
                       </div>      
                       
 					  <div class="form-group">
-		                  <label class="col-sm-4 control-label">Jobs</label>
+		                  <label class="col-sm-4 control-label">Pekerjaan Ayah</label>
 		                  <div class="col-sm-4">
-		                    <select id="jobs" class="form-control" required>
-		                      <option value="">Choose One</option>
-		                      <option value="civil servant">Civil Servant</option>
-		                      <option value="doctor">Dcotor</option>
-		                      <option value="bussinesman">Bussinesman</option>
-		                      <option value="others">Others</option>	                      
-		                    </select>
-		                    <label class="error" for="jobs"></label>
+			                  <input type="text" placeholder="pekerjaan ayah" name="pekerjaan-ayah" class="form-control">
 		                  </div>
-		                </div>             
-		                
-                      <div class="form-group">
-					  	<label class="col-sm-4 control-label">Phone</label>
-					   	<div class="col-sm-4">
-					   		<div class="input-group">
-						   		<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-							  <input type="text" placeholder="Phone" id="phone_p" class="form-control">
-					   		</div>
-					   	</div>
-					  </div>  
-					  
-					   <div class="form-group">
-						<label class="col-sm-4 control-label">Cellphone</label>
-					   	<div class="col-sm-4">
-					   		<div class="input-group">
-						   		<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-						   		<input type="text" placeholder="cellphone" id="cellphone_p" class="form-control">
-					   		</div>
-					   	</div>
-					  </div>  					                      
+		              </div>            
+		              
+					  <div class="form-group">
+		                  <label class="col-sm-4 control-label">Pekerjaan Ibu</label>
+		                  <div class="col-sm-4">
+			                  <input type="text" placeholder="pekerjaan ibu" name="pekerjaan-ibu" class="form-control">
+		                  </div>
+		              </div>            		              
                       
                       <div class="form-group">
-                        <label class="col-sm-4 control-label">Email</label>
-                        <div class="col-sm-4">
-                          <input type="email" name="email_p" placeholder="e.g. budiutama@yahoo.com" class="form-control"/>
-                        </div>
-                      </div> 
-                      
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">Earns per month</label>
+                        <label class="col-sm-4 control-label">Penghasilan per bulan Ayah</label>
                         <div class="col-sm-7">
 							<div class="input-group">
 			                  <span class="input-group-addon">Rp</span>
-			                  <input type="text" id="earns" class="form-control" required>
+			                  <input type="text" placeholder="Contoh : 3000000" id="penghasilan-ayah" name="penghasilan-ayah" class="form-control" required>
 			                  <span class="input-group-addon">.00</span>
 			                </div>
                         </div>
-                      </div>                       		                                           
-                    
+                      </div>                       		                                 
+                      
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label">Penghasilan per bulan Ibu</label>
+                        <div class="col-sm-7">
+							<div class="input-group">
+			                  <span class="input-group-addon">Rp</span>
+			                  <input type="text" placeholder="Contoh : 3000000" id="penghasilan-ibu" name="penghasilan-ibu" class="form-control" required>
+			                  <span class="input-group-addon">.00</span>
+			                </div>
+                        </div>
+                      </div>                       		                                 
+                                
+					  <hr/>
+					  
+					  <div class="form-group">
+                        <label class="col-sm-4 control-label">Nama Lengkap Wali</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="nama_lengkap_ayah" placeholder="nama lengkap wali" class="form-control" required />
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label">Alamat Wali</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="alamat-wali" placeholder="alamat wali" class="form-control" required/>
+                        </div>                       
+                      </div>                        
+		              
+                      <div class="form-group">
+					  	<label class="col-sm-4 control-label">Telepon / Handphone Wali</label>
+					   	<div class="col-sm-4">
+					   		<div class="input-group">
+						   		<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+							  <input type="text" name="telpon-ayah" placeholder="nomor telepon wali" class="form-control">
+					   		</div>
+					   	</div>
+					   	<div class="col-sm-4">
+					   		<div class="input-group">
+						   		<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+						   		<input type="text" name="hp-ayah" placeholder="nomor handphone wali" class="form-control">
+					   		</div>
+					   	</div>					   	
+					  </div> 
+					  
+					  <div class="form-group">
+		                  <label class="col-sm-4 control-label">Pekerjaan Wali</label>
+		                  <div class="col-sm-4">
+			                  <input type="text" placeholder="pekerjaan wali" name="pekerjaan-wali" class="form-control">
+		                  </div>
+		              </div>   
+		              
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label">Penghasilan per bulan Wali</label>
+                        <div class="col-sm-7">
+							<div class="input-group">
+			                  <span class="input-group-addon">Rp</span>
+			                  <input type="text" placeholder="Contoh : 3000000" id="penghasilan-wali" name="penghasilan-wali" class="form-control" required>
+			                  <span class="input-group-addon">.00</span>
+			                </div>
+                        </div>
+                      </div>                       		                                 		                					  					                      					   			                                
+					                                            
+                    <div class="clear-space"></div>                   
                   </div>
 				  <!--  end Parent Info    -->
 				  
                   <!-- Student Achievement -->
                   <div class="tab-pane" id="vtab4">
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">NIS</label>
-                        <div class="col-sm-4">
-                          <input type="text" value="001" id="readonlyNIS" class="form-control" readonly="readonly">
-                        </div>
-                      </div>
                       
 					  <div class="form-group">
-                        <label class="col-sm-4 control-label">Achivement Name</label>
+                        <label class="col-sm-4 control-label">Nama Prestasi</label>
                         <div class="col-sm-8">
-                          <input type="text" name="achievement_name" class="form-control" />
+                          <input type="text" placeholder="Contoh: Juara I Lomba Mewarnai" name="nama_prestasi" class="form-control" />
                         </div>
                       </div>
 
 					  <div class="form-group">
-                        <label class="col-sm-4 control-label">Level</label>
+                        <label class="col-sm-4 control-label">Tingkat</label>
                         <div class="col-sm-4">
-                          <input type="text" name="achievement_level" class="form-control" />
+                          <input type="text" placeholder="Contoh : D.I.Y" name="tingkat_prestasi" class="form-control" />
                         </div>
                       </div>
+
+					   <div class="form-group">
+		                  <label class="col-sm-4 control-label">Jenis Prestasi</label>
+		                  <div class="col-sm-3">
+		                    <select id="jenis-prestasi" class="form-control">
+		                      <option value="">Pilih salah satu</option>
+		                      <option value="akademik">Akademik</option>
+		                      <option value="non-akademik">Non Akademik</option>		                      
+		                    </select>
+		                  </div>
+		                </div> 
                       
 					  <div class="form-group">
-                        <label class="col-sm-4 control-label">Year</label>
+                        <label class="col-sm-4 control-label">Tahun</label>
                         <div class="col-sm-4">
-                          <input type="text" id="achievement_id" name="achievement_year" class="form-control" />
+                          <input type="text" id="tahun_prestasi" name="tahun_prestasi" class="form-control" />
                         </div>
-                      </div>                      
-                      
+                      </div>    
+                                       
+                   <button type="submit" class="btn btn-success btn-lg btn-block submit-form-regis">Submit Form</button>    
                   </div>
                   
-                  
                 </div><!-- tab-content -->
-                </form>
-                
                 <ul class="pager wizard">
-                    <li class="previous"><a href="javascript:void(0)">Previous</a></li>
-                    <li class="next"><a href="javascript:void(0)">Next</a></li>
-                  </ul>
+                	<li class="previous"><a href="javascript:void(0)">Previous</a></li>
+                	<li class="next"><a href="javascript:void(0)">Next</a></li>
+				</ul>                
+                </form>
                 
               </div><!-- #validationWizard -->
               
@@ -458,6 +509,7 @@
   jQuery(document).ready(function() {
     
 	  // With Form Validation Wizard
+/*
 	  var $validator = jQuery("#regisForm").validate({
 	    highlight: function(element) {
 	      jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -466,6 +518,7 @@
 	      jQuery(element).closest('.form-group').removeClass('has-error');
 	    }
 	  });
+*/
 	  
 	  jQuery('#validationWizard').bootstrapWizard({
 	    tabClass: 'nav nav-pills nav-justified nav-disabled-click',
@@ -473,12 +526,14 @@
 	      return false;
 	    },
 	    onNext: function(tab, navigation, index) {
+/*
 	      var $valid = jQuery('#regisForm').valid();
 	      if(!$valid) {
 	        
 	        $validator.focusInvalid();
 	        return false;
 	      }
+*/
 	      jQuery("html, body").animate({ scrollTop: 0 }, "slow");
 	    }
 	  });	
