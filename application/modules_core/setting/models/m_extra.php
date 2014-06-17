@@ -12,12 +12,12 @@ class m_extra extends CI_Model {
         $show = 'result()';
         if ($id_unit == '')
         {
-            $sql = "SELECT id_unit,unit FROM ref_unit WHERE kategori = 'AKADEMIS'";
+            $sql = "SELECT id_unit,unit,jenjang FROM ref_unit WHERE kategori = 'AKADEMIS'";
             $show = 'result';
         }
         else 
         {
-            $sql = "SELECT id_unit,unit FROM ref_unit WHERE id_unit = '$id_unit'";
+            $sql = "SELECT id_unit,unit,jenjang FROM ref_unit WHERE id_unit = '$id_unit'";
             $show = 'row';
         }
         $query = $this->db->query($sql);

@@ -56,7 +56,7 @@ class Students extends Admin_base {
 		$this->load->view('dashboard/admin/template', $data);
 	}	
 
-	
+	//registrasi untuk siswa baru
 	public function registration()
 	{
 	// user_auth
