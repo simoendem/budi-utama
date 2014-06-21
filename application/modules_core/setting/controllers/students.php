@@ -74,57 +74,32 @@ class Students extends Admin_base {
 		// load template
 		$data['title']	= "Students Registration PinapleSAS";
 		
-		$data['page_title'] = 'dashboard';
-		
 		$data['main_content'] = "setting/students/registration";
 		$this->load->view('dashboard/admin/template', $data);
 	}	
-	// edit
-/*
-	public function edit($role_slug = "") {
-		// user_auth
-		$this->check_auth('U');
+	
+	
+	//setup naik/tinggal kelas dan lulus/keluar untuk siswa
+	public function students_grade()
+	{
+	// user_auth
+		$this->check_auth('R');
 
+		$data['message'] = $this->session->flashdata('message');
 		// menu
 		$data['menu'] = $this->menu();
 		// user detail
 		$data['user'] = $this->user;
-		// get role detail
-		$data['result'] = $this->m_role->get_role_by_slug($role_slug);
-		// get menu list
-		$data['rs_menu'] = $this->m_menu->get_all_menu_by_portal_role(array($role_slug, $role_slug, $data['result']['portal_id']));
+		// get role list
+		$data['rs_role'] = $this->m_role->get_all_role();
+		// get permission list
+		$data['rs_permission'] = $this->m_permission->get_all_permission();
 		// load template
-		$data['title']	= "Edit Permission PinapleSAS";
-		$data['main_content'] = "setting/payment/edit";
+		$data['title']	= "Students Grades PinapleSAS";
+		
+		$data['main_content'] = "setting/students/students-grade";
 		$this->load->view('dashboard/admin/template', $data);
-	}
-*/
-
-	// edit process
-/*
-	public function edit_process() {
-		// form validation
-		$this->form_validation->set_rules('user_id', '', 'required|trim|xss_clean');
-		$this->form_validation->set_rules('role_id', '', 'required|trim|xss_clean');
-
-		if ($this->form_validation->run() == TRUE) {
-			// delete and then insert permission
-			$params = array($this->input->post('role_id'), $this->input->post('permission'));
-			$this->m_permission->delete_permission($params);
-			if ($this->m_permission->edit_permission($params)) {
-				$data['message'] = "Permission successfully granted";
-			}
-			$this->session->set_flashdata($data);
-			redirect('setting/permission');
-		} else {
-			$data = array(
-				'message'	=> str_replace("\n", "", validation_errors())
-			);
-		}
-		$this->session->set_flashdata($data);
-		redirect('setting/permission/edit/' . $this->input->post('role_id'));
-	}
-*/
+	}	
 
 	// page title
 	public function page_title() {
