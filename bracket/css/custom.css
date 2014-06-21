@@ -37,3 +37,13 @@
 	margin-top: 10px;
 }
 /* end payment page */
+
+/* Students Grade */
+.action-grades input{
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+}
+.action-grades{
+	margin-top: 45px;
+}
