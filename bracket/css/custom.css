@@ -47,3 +47,21 @@
 .action-grades{
 	margin-top: 45px;
 }
+.table-grades.table-email td:nth-child(2){
+	width: 580px !important;
+}
+.check-all > input{
+	padding: 8px;
+}
+.check-all {
+	width: 18px;
+	margin: 0 10px;
+}
+.check-all, .students-title-grades{
+	float: left;
+}
+.students-title-grades{
+	width: 455px;
+	margin-left: 20px;
+}
+/* end Students Grade */
