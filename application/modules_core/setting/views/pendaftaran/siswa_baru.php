@@ -1479,7 +1479,6 @@
   jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
     
 	  // With Form Validation Wizard
-/*
 	  var $validator = jQuery("#regisForm").validate({
 	    highlight: function(element) {
 	      jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -1488,7 +1487,6 @@
 	      jQuery(element).closest('.form-group').removeClass('has-error');
 	    }
 	  });
-*/
 	  
 	  jQuery('#validationWizard').bootstrapWizard({
 	    tabClass: 'nav nav-pills nav-justified nav-disabled-click',
@@ -1499,10 +1497,8 @@
 	      var $valid = jQuery('#regisForm').valid();
 	      if(!$valid) {
 	        
-/*
 	        $validator.focusInvalid();
 	        return false;
-*/
 	      }
 	      jQuery("html, body").animate({ scrollTop: 0 }, "slow");
 	    }

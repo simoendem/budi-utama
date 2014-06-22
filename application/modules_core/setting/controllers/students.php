@@ -8,6 +8,7 @@ class Students extends Admin_base {
 		// load model
 		$this->load->model('m_role');
 		$this->load->model('m_menu');
+		$this->load->model('m_extra');		
 		$this->load->model('m_permission');
 		// load permission
 		$this->load->helper('text');
@@ -94,6 +95,9 @@ class Students extends Admin_base {
 		$data['rs_role'] = $this->m_role->get_all_role();
 		// get permission list
 		$data['rs_permission'] = $this->m_permission->get_all_permission();
+		// unit list
+		$data['ls_unit']= $this->m_extra->get_unit();
+				
 		// load template
 		$data['title']	= "Students Grades PinapleSAS";
 		
