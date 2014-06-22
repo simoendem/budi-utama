@@ -1,10 +1,10 @@
     <div class="pageheader">
-      <h2><i class="fa fa-group"></i> Daftar Ulang untuk tahun ajaran <?php echo $tahun->tahun_ajaran?></h2>
+      <h2><i class="fa fa-group"></i>Pengaturan Buka Kelas Thn Ajaran : <?php echo $tahun->tahun_ajaran?></h2>
       <div class="breadcrumb-wrapper">
         <span class="label">You are here:</span>
         <ol class="breadcrumb">
           <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
-          <li class="active">Daftar Ulang untuk tahun ajaran <?php echo $tahun->tahun_ajaran?><li>
+          <li class="active">Pengaturan Buka Kelas Thn Ajaran : <?php echo $tahun->tahun_ajaran?></li>
         </ol>
       </div>
     </div>
@@ -15,27 +15,28 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Daftar Ulang untuk tahun ajaran <?php echo $tahun->tahun_ajaran?></h3>
+          <h3 class="panel-title">Pengaturan Buka Kelas Untuk Tahun Ajaran : <?php echo $tahun->tahun_ajaran?></h3>
           <p>
-        Daftar siswa yang belum melakukan daftar ulang. 
+        Menu ini digunakan untuk melakukan pengaturan kelas-kelas yang digunakan pada tahun ajaran <?php echo $tahun->tahun_ajaran?>
           </p>
         </div>
+        
         <div class="panel-body">
           <div class="table-responsive">
             <table class="table" id="table1">
               <thead>
                 <th style="width:10%;">#</th>
-                <th style="width:20%;">Nama</th>
+                <th style="width:20%;">Unit</th>
                 <th style="width:20%;"></th>
               </thead>
               <tbody>
-                                    <?php $no = 1; foreach ($siswas as $siswa): ?>
+                                    <?php $no = 1; foreach ($ls_unit as $unit): ?>
                                         <tr>
-                                            <td><?php echo $siswa->nis; ?></td>
-                                            <td><?php echo $siswa->nama_lengkap; ?></td>
+                                            <td><?php echo $no; ?></td>
+                                            <td><?php echo $unit->unit; ?></td>
                                             <td>
-                                               <a href="<?php echo base_url(); ?>setting/daftar_ulang/add_process/<?php echo $siswa->nis; ?>">
-                                               Daftar Ulang</a>
+                                               <a href="<?php echo base_url(); ?>setting/buka_kelas/list_buka/<?php echo $unit->id_unit; ?>">
+                                               Buka Kelas</a>
                                             </td>
                                         </tr>
                                     <?php $no++; endforeach ; ?>

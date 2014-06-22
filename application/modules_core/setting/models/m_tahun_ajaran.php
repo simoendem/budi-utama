@@ -54,5 +54,19 @@ class m_tahun_ajaran extends CI_Model {
     function delete_tahun_ajaran($params) {
        $this->db->delete('tahun_ajaran',$params,array('id'=>$params['id']));
     }
+
+    function get_tahun_aktif(){
+       $sql = "SELECT *
+                FROM tahun_ajaran
+                WHERE status = 'AKTIF' limit 1";
+
+        $query = $this->db->query($sql);
+        //echo '<pre>'; print_r($query->result()); die;
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return array();
+        }
+    }
     
 }

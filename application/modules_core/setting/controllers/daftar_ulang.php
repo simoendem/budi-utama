@@ -9,6 +9,8 @@ class Daftar_ulang extends Admin_base {
 		$this->load->model('m_role');
 		$this->load->model('m_menu');
 		$this->load->model('m_permission');
+		$this->load->model('m_tahun_ajaran');		
+		$this->load->model('m_daftar_ulang');
 		// load permission
 		$this->load->helper('text');
 		// page title
@@ -25,16 +27,47 @@ class Daftar_ulang extends Admin_base {
 		$data['menu'] = $this->menu();
 		// user detail
 		$data['user'] = $this->user;
-		// get role list
-		$data['rs_role'] = $this->m_role->get_all_role();
-		// get permission list
-		$data['rs_permission'] = $this->m_permission->get_all_permission();
+		// get tahun
+		$data['tahun']				= $this->m_tahun_ajaran->get_tahun_aktif();
+		$thn = $data['tahun']->tahun_ajaran;		
+		// get daftar siswa no daftar ulang yet
+		$data['siswas']		= $this->m_daftar_ulang->get_siswa_no_daftar_ulang($thn);
 		// load template
 		$data['title']	= "Manage Students PinapleSAS";
 		$data['main_content'] = "setting/daftar_ulang/list";
 		$this->load->view('dashboard/admin/template', $data);
 	}
 	
+	public function add_process($nis = "")
+	{
+		// user_auth
+		$this->check_auth('U');
+
+		if ($nis == "") {
+			redirect('setting/daftar_ulang/');
+		}
+		// get tahun ajaran
+		$data['tahun']				= $this->m_tahun_ajaran->get_tahun_aktif();
+		$thn = $data['tahun']->tahun_ajaran;
+
+	        $this->load->helper('date');
+	        $datestring = '%Y-%m-%d %H:%i:%s';
+	        $time = time();
+	        $now = mdate($datestring, $time);
+
+		$params = array(
+				'nis'			=> $nis,
+				'tahun_ajaran' => $thn,
+				'tgl_daftar'	=> $now
+			);
+
+		if ($this->m_daftar_ulang->daftar_ulang_siswa($params)) {
+			$data['message'] = "Data successfully deleted";
+		}
+		$this->session->set_flashdata($data);		
+		redirect('setting/daftar_ulang/');
+
+	}
 	// page title
 	public function page_title() {
 		$data['page_title'] = 'Daftar Ulang';
