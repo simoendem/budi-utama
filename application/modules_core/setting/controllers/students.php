@@ -80,8 +80,8 @@ class Students extends Admin_base {
 	}	
 	
 	
-	//setup naik/tinggal kelas dan lulus/keluar untuk siswa
-	public function students_grade()
+	//setup penempatan siswa
+	public function students_placement()
 	{
 	// user_auth
 		$this->check_auth('R');
@@ -101,7 +101,7 @@ class Students extends Admin_base {
 		// load template
 		$data['title']	= "Students Grades PinapleSAS";
 		
-		$data['main_content'] = "setting/students/students-grade";
+		$data['main_content'] = "setting/students/students-placement";
 		$this->load->view('dashboard/admin/template', $data);
 	}	
 
