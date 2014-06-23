@@ -99,11 +99,36 @@ class Students extends Admin_base {
 		$data['ls_unit']= $this->m_extra->get_unit();
 				
 		// load template
-		$data['title']	= "Students Grades PinapleSAS";
+		$data['title']	= "Students Placement PinapleSAS";
 		
 		$data['main_content'] = "setting/students/students-placement";
 		$this->load->view('dashboard/admin/template', $data);
-	}	
+	}
+	
+	//setup naik/lulus/keluar
+	public function students_grades()
+	{
+	// user_auth
+		$this->check_auth('R');
+
+		$data['message'] = $this->session->flashdata('message');
+		// menu
+		$data['menu'] = $this->menu();
+		// user detail
+		$data['user'] = $this->user;
+		// get role list
+		$data['rs_role'] = $this->m_role->get_all_role();
+		// get permission list
+		$data['rs_permission'] = $this->m_permission->get_all_permission();
+		// unit list
+		$data['ls_unit']= $this->m_extra->get_unit();
+				
+		// load template
+		$data['title']	= "Students Grades PinapleSAS";
+		
+		$data['main_content'] = "setting/students/students-grades";
+		$this->load->view('dashboard/admin/template', $data);
+	}		
 
 	// page title
 	public function page_title() {
