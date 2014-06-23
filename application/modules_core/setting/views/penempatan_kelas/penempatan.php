@@ -1,13 +1,14 @@
 
 
     <div class="pageheader">
-      <h2><i class="fa fa-asterisk"></i>Students Grade</h2>
+      <h2><i class="fa fa-asterisk"></i>Penempatan Siswa</h2>
       <div class="breadcrumb-wrapper">
         <span class="label">You are here:</span>
         <ol class="breadcrumb">
           <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
-          <li><a href="<?php echo base_url();?>setting/students">Students</a></li>
-          <li class="active">Students Grade</li>
+          <li><a href="<?php echo base_url();?>setting/penempatan_kelas">Penempatan Kelas</a></li>
+          <li><a href="<?php echo base_url();?>setting/penempatan_kelas/penempatan/<?php echo $unit->unit ?>/<?php echo $result->id_buka?>">Kelas <?php echo $result->kelas?></li>
+
         </ol>
       </div>
     </div>
@@ -26,92 +27,47 @@
           <div class="panel-btns">
             <a href="#" class="minimize">&minus;</a>
           </div>
-          <h4 class="panel-title">Filter</h4>
-          <p><span class="asterisk">*</span> required</p>
+          <h4 class="panel-title">Daftar Siswa Kelas <?php echo $result->kelas?> </h4>
+          <p>tahun ajaran : <?php echo $tahun->tahun_ajaran?></p><br><br>
+          <a href="<?php echo base_url(); ?>setting/penempatan_kelas/add_siswa/<?php echo $unit->id_unit?>/<?php echo $result->id_buka; ?>/<?php echo $result->tingkat; ?>" data-title="Add Data" class="tip"><i class="fa fa-plus"></i> Tambah Siswa</a>
         </div><!-- panel-heading -->
         <form id="daftarUlang" class="form-horizontal">
+
         <div class="panel-body">
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Tahun Ajaran</label>
-            <div class="col-sm-2">
-              <input type="text" name="grades[tahun-ajaran]" value="2014/2015" class="form-control input-sm mb15" disabled/>
-            </div>
-          </div>
-
-		<div class="form-group">
-		  <label class="col-sm-2 control-label">Jenjang Sekolah <span class="asterisk">*</span></label>
-            <div class="col-sm-2">
-              <input type="text" name="grades[tahun-ajaran]" value="2014/2015" class="form-control input-sm mb15" disabled/>
-            </div>		  <div class="col-md-2">
-		    <select name="siswa[siswa_jenjang]" id="jenjangSekolah" class="form-control input-sm mb15" required>
-		     <option value="" selected="selected">Pilih jenjang sekolah</option>		                      					      
-		    </select>
-		    <label class="error" for="jenjangSekolah"></label>
-		  </div>
-		   <div class="col-md-2">
-		    <select name="siswa[siswa_kelas]" id="jenjangKelas" class="form-control input-sm mb15" required>
-		      <option value="" selected="selected">Pilih jenjang kelas</option>		                      					      
-		    </select>
-		    <label class="error" for="jenjangKelas"></label>
-		  </div>					  
-		</div> 
-
-        </div>
+          <div class="table-responsive">
+            <table class="table" id="table1">
+              <thead>
+                <th style="width:10%;">#</th>
+                <th style="width:20%;">NIS</th>
+                <th style="width:20%;">Nama Lengkap</th>
+                <th style="width:20%;">Status</th>
+                <th style="width:20%;">Naik/Tinggal Kelas</th>
+                <th style="width:20%;"></th>
+              </thead>
+              <tbody>
+                                    <?php $no = 1; foreach ($siswas as $siswa): ?>
+                                        <tr>
+                                            <td><?php echo $no; ?></td>
+                                            <td><?php echo $siswa->nis; ?></td>
+                                            <td><?php echo $siswa->nama_lengkap; ?></td>
+                                            <td><?php echo $siswa->status; ?></td>
+                                            <td><?php echo $siswa->kesimpulan; ?></td>
+                                            <td>
+                                               <a href="<?php echo base_url(); ?>setting/penempatan_kelas/hapus/<?php echo $unit->id_unit; ?>/<?php echo $result->id_buka; ?>/<?php echo $siswa->id; ?>">
+                                                <i class="fa fa-trash-o"></i></a>                                            
+                                            </td>
+                                        </tr>
+                                    <?php $no++; endforeach ; ?>
+              </tbody>
+           </table>
+          </div><!-- table-responsive -->
+          <div class="clearfix mb30"></div>
+        </div><!-- panel-body -->
 		<div class="panel-footer">
 	        <button id="cariSiswa" class="btn btn-warning">Cari</button>
 	    </div>
 		</form>        
-      </div><!-- panel -->      
-
-      
-		<div class="col-md-12">
-		  <div class="panel panel-default">
-		    <div class="panel-heading">
-		      <div class="panel-btns">
-		        <a href="#" class="panel-close">&times;</a>
-		        <a href="#" class="minimize">&minus;</a>
-		      </div>
-		      <h4 class="panel-title">Students List</h4>
-		    </div>
-		    <form id="gradesSiswa" class="form-horizontal form-bordered">
-		    <div class="panel-body">
-		    	<div class="row">
-		    		<div class="col-md-5">
-						<div class="form-group">
-							<label class="control-label">Siswa yang sudah terdaftar</label>
-							<div class="input-group col-sm-12">
-								<select class="form-control input-sm" multiple="multiple" id="lstBox1">
-									<option><span>10001 --</span> Bhimasta</option>
-									<option>10002 --</span> Simon M</option>
-									<option>10003 --</span> Albertus</option>
-								</select>
-							</div>
-						</div>		    					           
-		    		</div>
-		    		<div class="col-md-2 action-grades">
-						<input class="btn-info btn" type="button" id="btnRight" value ="  >  "/>
-						<br/><input  class="btn-info btn" type="button" id="btnLeft" value ="  <  "/>
-		    		</div>
-		    		<div class="col-md-5">
-						<div class="form-group">
-							<label class="control-label">Calon Siswa yang ingin didaftarkan</label>
-							<div class="input-group col-sm-12">
-								<select class="form-control input-sm" multiple="multiple" id="lstBox2">
-									<option><span>10004 --</span> Raden</option>
-									<option>10005 --</span> Megadewandanu</option>
-									<option>10006 --</span> Satria Yudha</option>
-								</select>
-							</div>
-						</div>		    				    		
-		    		</div>		    				    		
-		    	</div>
-		    </div><!-- panel-body -->
-		    </form>
-		  </div><!-- panel -->
-		</div><!-- col-md-12 -->
-        
-                
+      </div><!-- panel -->                      
     </div><!-- contentpanel -->
     
 <script src="<?php echo base_url();?>bracket/js/jquery-1.10.2.min.js"></script>

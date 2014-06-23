@@ -80,19 +80,20 @@ class m_kelas extends CI_Model {
 
     function get_kelas_buka_by_unit_tahun($id_unit,$thn) {
 
-        $sql = "SELECT k.id_buka,k.id_kelas,r.kelas,r.tingkat,r.id_unit,r.id
+        $sql = "SELECT j.id_buka,j.id_kelas,j.kelas,j.tingkat,j.id_unit,j.id, COUNT(s.nis) jumlah
+                FROM (SELECT k.id_buka,k.id_kelas,r.kelas,r.tingkat,r.id_unit,r.id
                 FROM
-                (SELECT *
+                (SELECT a.id_buka,a.id_kelas, a.tahun_ajaran
                 FROM kelas_aktif a
                 WHERE a.id_unit = '$id_unit') k
                 LEFT JOIN ref_kelas r 
                 ON k.id_kelas = r.id
                  AND k.tahun_ajaran = '$thn' 
-                 ORDER BY r.id";
-
-        // $sql = "SELECT *
-        //         FROM kelas_aktif a
-        //         WHERE a.id_unit = '$id_unit'";
+                 ORDER BY r.id) j
+                LEFT JOIN siswa_kelas s
+                ON j.id_buka = s.id_buka
+                GROUP BY j.id_buka
+                ORDER BY j.id";
 
         $query = $this->db->query($sql);
         // echo '<pre>'; print_r($query->result());die;
@@ -105,10 +106,9 @@ class m_kelas extends CI_Model {
 
     function get_kelas_buka_by_unit_tahun_detail($id_buka) {
         $sql = "SELECT k.id_buka,k.id_kelas,r.kelas,r.tingkat,r.id_unit 
-                FROM kelas_aktif k
+                FROM (SELECT * FROM kelas_aktif a WHERE a.id_buka = '$id_buka') k
                 LEFT JOIN ref_kelas r 
-                ON k.id_kelas = r.id
-                AND k.id_buka = '$id_buka' ";
+                ON k.id_kelas = r.id";
         $query = $this->db->query($sql);
         // echo '<pre>'; print_r($query->result());die;
         if ($query->num_rows() > 0) {
@@ -128,6 +128,15 @@ class m_kelas extends CI_Model {
         }
     }
 
+    // add menu
+    function add_siswa_kelas($params) {
+        $insert = $this->db->insert('siswa_kelas',$params);        
+        if($insert) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // delete menu
     function delete_kelas_buka($id_buka) {
@@ -140,4 +149,54 @@ class m_kelas extends CI_Model {
         }    
     }
 
+    function get_siswa_kelas($id_buka) {
+        $sql = "SELECT s.id,s.nis,s.status,s.kesimpulan,u.nama_lengkap FROM siswa_kelas s,users_siswa_alumni u 
+                    WHERE s.id_buka = '$id_buka'
+                    AND s.nis = u.nis";
+        $query = $this->db->query($sql);
+        // echo '<pre>'; print_r($query->result());die;
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }        
+    }
+
+    // delete menu
+    function delete_siswa_kelas($id) {
+        $this->db->where('id',$id);
+        $delete = $this->db->delete('siswa_kelas');        
+        if($delete) {
+            return true;
+        } else {
+            return false;
+        }    
+    }
+
+    //tampilkan semua siswa yang :
+    //tingkat jenjangnya sesuai sama OK
+    //daftar ulang OK
+    //belum mendapat kelas tahun ajaran aktif
+    //bukan alumni (yang daftar ulang pasti bukan siswa) OK
+    function get_siswa_qualifikasi($id_unit,$tingkat,$thn) {
+        $sql = "SELECT j.nis,j.nama_lengkap,j.jenjang_mulai,j.id_unit,j.status, j.unit
+                FROM (SELECT u.nis,u.nama_lengkap,u.jenjang_mulai,u.id_unit,u.status, r.unit
+                    FROM users_siswa_alumni u, ref_unit r
+                    WHERE jenjang_mulai = '$tingkat' 
+                    AND u.id_unit = r.id_unit
+                    AND u.id_unit = '$id_unit'
+                    AND EXISTS (SELECT *
+                       FROM   daftar_ulang d
+                       WHERE  u.nis = d.nis AND d.tahun_ajaran = '$thn')) j 
+                WHERE NOT EXISTS (SELECT *
+                    FROM siswa_kelas s
+                    WHERE j.nis = s.nis AND s.tahun_ajaran = '$thn')";
+        $query = $this->db->query($sql);
+        // echo '<pre>'; print_r($query->result());die;
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        } 
+    }
 }

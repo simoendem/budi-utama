@@ -120,9 +120,7 @@ class Buka_kelas extends Admin_base {
 			redirect('setting/buka_kelas/list_buka/' . $this->input->post('id_unit'));
 		} else {
 			$data = array(
-				'message'		=> str_replace("\n", "", validation_errors()),
-				'kelas_name'		=> $this->input->post('kelas_name'),
-				'kelas_tingkat'		=> $this->input->post('kelas_tingkat'),
+				'message'		=> str_replace("\n", "", validation_errors())
 			);
 		}
 
