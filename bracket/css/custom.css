@@ -64,4 +64,10 @@
 	width: 455px;
 	margin-left: 20px;
 }
+#graduation button, #nextLevel button{
+	color: #000;
+}
+#graduation button.disabled, #nextLevel button.disabled{
+	color: #b1b1b1;
+}
 /* end Students Grade */

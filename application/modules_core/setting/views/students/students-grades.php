@@ -70,25 +70,19 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         
-                        <div class="pull-right">
-                        	<div class="btn-group mr5">
-								<button id="cariSiswa" class="btn btn-success">Save Changes</button>
-                        	</div>
-                        </div>
-                        
-                        <div class="pull-right">
+                        <div class="pull-right" id="graduation">
                             <div class="btn-group mr10">
-                                <button class="btn btn-white tooltips" type="button" data-toggle="tooltip" title="Lulus"><i class="glyphicon glyphicon-ok"></i></button>
-                                <button class="btn btn-white tooltips" type="button" data-toggle="tooltip" title="Tidak Lulus"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                <button class="btn btn-white tooltips disabled" type="button" data-toggle="tooltip" value="Lulus" title="Lulus"><i class="glyphicon glyphicon-ok"></i></button>
+                                <button class="btn btn-white tooltips disabled" type="button" data-toggle="tooltip" value="Tidak Lulus" title="Tidak Lulus"><i class="glyphicon glyphicon-remove-circle"></i></button>
                             </div>
                                                         
                         </div><!-- pull-right --> 
                                                 
                          <!-- if jenjang = max, add 'disabled' class on each button -->
-                        <div class="pull-right">
+                        <div class="pull-right" id="nextLevel">
                             <div class="btn-group mr10">
-                                <button class="btn btn-white tooltips disabled" type="button" data-toggle="tooltip" title="Naik Kelas"><i class="glyphicon glyphicon-upload"></i></button>
-                                <button class="btn btn-white tooltips disabled" type="button" data-toggle="tooltip" title="Tinggal Kelas"><i class="glyphicon glyphicon-exclamation-sign"></i></button>
+                                <button class="btn btn-white tooltips disabled" type="button" data-toggle="tooltip" value="Naik Kelas" title="Naik Kelas"><i class="glyphicon glyphicon-upload"></i></button>
+                                <button class="btn btn-white tooltips disabled" type="button" data-toggle="tooltip" value="Tinggal Kelas" title="Tinggal Kelas"><i class="glyphicon glyphicon-exclamation-sign"></i></button>
                             </div>
                                                         
                         </div><!-- pull-right -->                       
@@ -106,7 +100,7 @@
                         <div class="table-responsive">
                             <table class="table table-grades table-email">
                               <tbody>
-                                <tr class="unread">
+                                <tr class="student-row">
                                   <td>
                                     <div class="ckbox ckbox-success">
                                         <input class="checkboxStud" type="checkbox" id="checkbox1">
@@ -119,13 +113,13 @@
                                           <img alt="" src="<?php echo base_url()?>bracket/images/photos/user3.png" class="media-object">
                                         </a>
                                         <div class="media-body">
-                                            <h5 class="pull-right text-success">Naik Kelas</h5>
+                                            <h5 class="pull-right status-siswa text-success">Naik Kelas</h5>
                                             <h5 class="text-primary">Zaham Sindilmaca</h5>
                                         </div>
                                     </div>
                                   </td>
                                 </tr>
-                                <tr class="unread">
+                                <tr class="student-row">
                                   <td>
                                     <div class="ckbox ckbox-success">
                                         <input class="checkboxStud" type="checkbox" id="checkbox2">
@@ -138,7 +132,7 @@
                                           <img alt="" src="<?php echo base_url()?>bracket/images/photos/user2.png" class="media-object">
                                         </a>
                                         <div class="media-body">
-                                            <h5 class="pull-right text-danger">Tinggal Kelas</h5>
+                                            <h5 class="pull-right status-siswa text-danger">Tinggal Kelas</h5>
                                             <h5 class="text-primary">Nusja Nawancali</h5>
                                         </div>
                                     </div>
@@ -181,30 +175,17 @@ jQuery(document).ready(function(){
             t.closest('tr').removeClass('selected');
         }
     });
-    
-    // Star
-    jQuery('.star').click(function(){
-        if(!jQuery(this).hasClass('star-checked')) {
-            jQuery(this).addClass('star-checked');
-        }
-        else
-            jQuery(this).removeClass('star-checked');
-        return false;
-    });
-    
-    // Read mail
-    jQuery('.table-email .media').click(function(){
-        location.href="read.html";
-    });
-    
+        
     $('#studentsList').on('click', '#checkboxAll', function(){
         if(this.checked) { // check select status
             $('.checkboxStud').each(function() { //loop through each checkbox
                 this.checked = true;  //select all checkboxes with class "checkbox1"               
+                $(this).closest('tr').addClass('selected');
             });
         }else{
             $('.checkboxStud').each(function() { //loop through each checkbox
                 this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                $(this).closest('tr').removeClass('selected');                
             });         
         }
     });   
@@ -237,6 +218,7 @@ var modelTypeJsonList = {
 		};
     console.log( "ready!" );
 
+
 	//Now that the doc is fully ready - populate the lists   
 	//Next comes the make
       var ModelListItems= "";
@@ -251,12 +233,46 @@ var modelTypeJsonList = {
         for (var i = 0; i < modelTypeJsonList[make].length; i++){
             listItems+= "<option value='" + modelTypeJsonList[make][i].modelTypeID + "'>" + modelTypeJsonList[make][i].modelType + "</option>";
         }
-        $("select#jenjangKelas").html(listItems);
+        $("#jenjangKelas").html(listItems);
+		var maxJenjang = $("#jenjangKelas option").length;
+
+	    $("select#jenjangKelas").on('change',function(){
+			var selectedClass = $('#jenjangKelas option:selected').text();
+			if(maxJenjang == selectedClass)
+			{
+				$('#graduation button').removeClass('disabled');			
+				$('#nextLevel button').addClass('disabled');				
+			}
+			else
+			{
+				$('#nextLevel button').removeClass('disabled');
+				$('#graduation button').addClass('disabled');
+			}
+	    });    		
     }
+   
    
     $("select#jenjangSekolah").on('change',function(){
         var selectedMake = $('#jenjangSekolah option:selected').text();
         updateSelectSchoolBox(selectedMake);
-    });    		
+        
+    }); 
+    
+    $('#studentsList').on('click', 'button', function(){
+		var status = $(this).attr('value');
+		
+		if ((status == "Lulus") || (status == "Naik Kelas"))
+		{
+			$('tr.selected .status-siswa').replaceWith('<h5 class="pull-right status-siswa text-success">'+status+'</h5>');
+		}
+		
+		if ((status == "Tidak Lulus") || (status == "Tinggal Kelas"))
+		{
+			$('tr.selected .status-siswa').replaceWith('<h5 class="pull-right status-siswa text-danger">'+status+'</h5>');
+		}					  		                	
+		
+    });   	
+
+ 
 });
 </script>
