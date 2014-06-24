@@ -104,6 +104,28 @@ class m_kelas extends CI_Model {
         }           
     }
 
+
+    function get_kelas_buka_by_tahun($thn) {
+
+        $sql = "SELECT k.id_buka,k.id_kelas,r.kelas,r.tingkat,r.id_unit,r.id
+                FROM
+                (SELECT a.id_buka,a.id_kelas, a.tahun_ajaran
+                FROM kelas_aktif a WHERE a.tahun_ajaran = '$thn') k
+                LEFT JOIN ref_kelas r 
+                ON k.id_kelas = r.id
+                  
+                 ORDER BY r.id";
+
+        $query = $this->db->query($sql);
+        // echo '<pre>'; print_r($query->result());die;
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }           
+    }
+
+
     function get_kelas_buka_by_unit_tahun_detail($id_buka) {
         $sql = "SELECT k.id_buka,k.id_kelas,r.kelas,r.tingkat,r.id_unit 
                 FROM (SELECT * FROM kelas_aktif a WHERE a.id_buka = '$id_buka') k
@@ -172,6 +194,18 @@ class m_kelas extends CI_Model {
             return false;
         }    
     }
+
+    // delete menu
+    function update_siswa_kesimpulan($id,$input) {
+        $this->db->where('id',$id);
+        $update = $this->db->update('siswa_kelas',$input);        
+        if($update) {
+            return true;
+        } else {
+            return false;
+        }    
+    }
+
 
     //tampilkan semua siswa yang :
     //tingkat jenjangnya sesuai sama OK

@@ -4,7 +4,7 @@
         <span class="label">You are here:</span>
         <ol class="breadcrumb">
           <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
-          <li><a href="<?php echo base_url();?>setting/buka_kelas ?>">Manage Kelas</a></li>
+          <li><a href="<?php echo base_url();?>setting/buka_kelas">Manage Kelas</a></li>
           <li class="active">Pengaturan Buka Kelas <?php echo $unit->unit ?> pada Thn Ajaran : <?php echo $tahun->tahun_ajaran?></li>
         </ol>
       </div>

@@ -207,6 +207,8 @@ var modelTypeJsonList = {
 
       "<?php echo $unit->unit ?>" :
         [
+            //setiap yang unitnya sama
+
             <?php for ($i = 1; $i <= $unit->jenjang; $i++) : ?>
                 {"modelTypeID" : "<?php echo $unit->id_unit ?>","modelType" : "<?php echo $i ?>"}
               <?php if ($i + 1 <= $unit->jenjang) : ?>
