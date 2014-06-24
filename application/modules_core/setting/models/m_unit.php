@@ -11,6 +11,19 @@ class m_unit extends CI_Model {
         return $this->db->get('ref_unit')->result();
     }
 
+    function get_all_unit_for_administration_cost(){
+        $sql = "SELECT u.*
+            FROM ref_unit u
+            WHERE id_unit <> '0000'
+            ORDER BY u.id_unit";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+
     function get_all_unit_except_self($id){
         $sql = "SELECT u.*
             FROM ref_unit u

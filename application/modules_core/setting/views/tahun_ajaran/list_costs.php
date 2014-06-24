@@ -4,7 +4,8 @@
         <span class="label">You are here:</span>
         <ol class="breadcrumb">
           <li><a href="<?php echo base_url();?>dashboard">Pinaple SAS</a></li>
-          <li class="active">Manage Tahun Ajaran</li>
+          <li><a href="<?php echo base_url();?>setting/tahun_ajaran/">Manage Tahun Ajaran</a></li>
+          <li class="active">Manage Tahun Ajaran <?php echo $r_ta->tahun_ajaran; ?></li>
         </ol>
       </div>
     </div>
@@ -14,17 +15,17 @@
       <?php if ($message != null ) : ?>
       <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <strong>Well done!</strong>   <?php echo $message; ?>
+                <strong>Well done!</strong> <?php echo $message; ?>
         </div>
       <?php endif ; ?>
 
       
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Manage Tahun Ajaran</h3>
+          <h3 class="panel-title">Manage Cost Tahun Ajaran <?php echo $r_ta->tahun_ajaran; ?></h3>
           <p>
         Don't Touch this data unless you're confident. <br><br>
-            <a href="<?php echo base_url(); ?>setting/tahun_ajaran/add" data-title="Add Data" class="tip"><i class="fa fa-plus"></i> Add New Tahun Ajaran</a>
+            <a href="<?php echo base_url(); ?>setting/tahun_ajaran/add_cost/<?php echo $r_ta->id; ?>" data-title="Add Data" class="tip"><i class="fa fa-plus"></i> Add New Cost Tahun Ajaran <?php echo $r_ta->tahun_ajaran; ?></a>
           </p>
         </div>
         <div class="panel-body">
@@ -33,29 +34,31 @@
 		                            <thead>
 		                                <tr>
 		                                    <th>#</th>
-		                                    <th>Tahun Ajaran</th>
-		                                    <th>Mulai</th>
-                                        <th>Akhir</th>
-		                                    <th>Status</th>
+                                        <th>Unit Name</th>
+		                                    <th>Item Cost Name</th>
+                                        <th colspan="2" style="width:15%;">Amount</th>
 		                                    <th style="width:33%;"></th>
 		                                </tr>
 		                            </thead>
 		                            <tbody>
-		                                <?php $no = 1; foreach ($rs_tahun_ajaran as $result): ?>
+		                                <?php $no = 1; foreach ($rs_ta_costs as $result): ?>
 		                                    <tr>
-		                                        <td><?php echo $no; ?></td>
-		                                        <td><?php echo $result->tahun_ajaran; ?></td>
-		                                        <td><?php echo date("d-m-Y",strtotime($result->mulai)); ?></td>
-		                                        <td><?php echo date("d-m-Y",strtotime($result->akhir)); ?></td>
-		                                        <td><?php echo $result->status; ?></td>
-                                            <td>
-	                                              <a href="<?php echo base_url(); ?>setting/tahun_ajaran/edit/<?php echo $result->id; ?>">
+		                                        <td><?php echo $no; ?></td>		                                        
+		                                        <td><?php echo $result->unit_name; ?></td>
+		                                        <td><?php echo $result->item_name; ?></td>
+                                            <td>Rp</td>
+                                            <td style="text-align:right">
+                                            <?php echo number_format($result->item_amount,2,',','.') ?>
+                                            </td>
+                                            <td style="text-align:center">
+	                                              <a href="<?php echo base_url(); ?>setting/tahun_ajaran/edit_cost/<?php echo $r_ta->id; ?>/<?php echo $result->ac_id; ?>">
 	                                                <i class="fa fa-pencil"></i></a>
 	                                                &nbsp;&nbsp;
-                                                <a href="<?php echo base_url(); ?>setting/tahun_ajaran/list_costs/<?php echo $result->id; ?>">
-                                                  <i class="fa fa-file"></i></a>
-                                                  &nbsp;&nbsp;
-	                                                <i class="fa fa-trash-o" onclick="hapus(<?php echo $result->id ?>,'<?php echo $result->tahun_ajaran ?>')"></i>
+	                                                <i class="fa fa-trash-o" onclick="hapus(
+                                                  <?php echo $r_ta->id ?>,
+                                                  <?php echo $result->ac_id ?>,
+                                                  '<?php echo $result->unit_name.": ".$result->item_name ?>'
+                                                  )"></i>
 		                                        </td>
 		                                    </tr>
 		                                <?php $no++; endforeach ; ?>
@@ -96,9 +99,9 @@
   });
 </script>
 <script type="text/javascript" language="javascript">
-  function hapus(no,nama){
+  function hapus(ta,no,nama){
     if(confirm('Yakin akan menghapus '+nama+' ini?'))
-      window.location = "<?php echo base_url(); ?>setting/tahun_ajaran/delete/"+no;
+      window.location = "<?php echo base_url(); ?>setting/tahun_ajaran/delete_cost/"+ta+"/"+no;
   }
 </script>
 
