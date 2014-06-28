@@ -526,14 +526,12 @@
 	      return false;
 	    },
 	    onNext: function(tab, navigation, index) {
-/*
 	      var $valid = jQuery('#regisForm').valid();
 	      if(!$valid) {
 	        
 	        $validator.focusInvalid();
 	        return false;
 	      }
-*/
 	      jQuery("html, body").animate({ scrollTop: 0 }, "slow");
 	    }
 	  });	
