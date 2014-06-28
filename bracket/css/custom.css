@@ -3,6 +3,30 @@
 	clear: both;
 	margin: 30px 0;
 }
+/* table */
+.table{
+	float: left;
+}
+/* Page Header */
+.pageheader h2{
+	max-width: 300px;
+	margin-left: 50px;
+}
+.pageheader h2 i{
+	margin-left: -50px;
+}
+/* -- breadcrumb */
+.pageheader .breadcrumb-wrapper{
+	max-width: 500px;
+	text-align: right;
+}
+.pageheader .breadcrumb-wrapper .label{
+	padding: 0;
+}
+/* end breadcrumb */
+/* end Page Header */
+
+
 /* Registration */
 #validationWizard .tab-content{
 	padding: 35px 15px 15px 15px;
