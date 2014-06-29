@@ -35,6 +35,19 @@
 	margin-bottom: 30px;
 }
 /* payment page */
+.select-students-container{
+	min-height: 150px;
+}
+.select-students-container .chosen-container-single .chosen-single{
+	padding: 9px;
+}
+.btn-cari-bayar{
+	padding: 8px 60px;
+}
+.title-pembayaran{
+	text-transform: capitalize;
+	color: #428bca;
+}
 .payment .dataTables_filter input{
 	width: 650px !important;
 }

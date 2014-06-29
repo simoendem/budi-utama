@@ -149,7 +149,7 @@ $this->load->model('m_kelas');
 jQuery(document).ready(function(){
 
     //Check
-    $('#rekapTagihan').on('click', 'input', function(){
+    $('.ckbox').on('click', 'input', function(){
         var t = jQuery(this);
         if(t.is(':checked')){
             t.closest('tr').addClass('selected');
@@ -265,9 +265,11 @@ var modelTypeJsonList = {
                             '<td>'+
                             '<div class="ckbox ckbox-success">'+
                             '<input class="checkboxStud" type="checkbox" id="checkbox'+index+'" name="checkbox'+nis+'[nis]">'+
-                            '<input class="id'+index+'" type="hidden" name="checkbox'+index+'[id]" value="'+id+'">'+
-                            '<input class="simpul'+index+' sim" type="hidden" name="sim" value="'+kesimpulan+'">'+
                             '<label for="checkbox'+index+'"></label>'+
+                            '</div>'+
+                            '<div class="input-hidden">'+
+                            '<input class="id'+index+'" type="hidden" name="checkbox'+index+'[id]" value="'+id+'">'+
+                            '<input class="simpul'+index+' sim" type="hidden" name="sim" value="'+kesimpulan+'">'+                            
                             '</div>'+
                             '</td>'+
                             '<td>'+
@@ -286,10 +288,12 @@ var modelTypeJsonList = {
                             '<td>'+
                             '<div class="ckbox ckbox-success">'+
                             '<input class="checkboxStud" type="checkbox" id="checkbox'+index+'" name="checkbox'+nis+'[nis]">'+
-                            '<input class="id'+index+'" type="hidden" name="checkbox'+index+'[id]" value="'+id+'">'+
-                            '<input class="simpul'+index+' sim" type="hidden" name="sim" value="'+kesimpulan+'">'+
                             '<label for="checkbox'+index+'"></label>'+
                             '</div>'+
+                            '<div class="input-hidden">'+                            
+                            '<input class="id'+index+'" type="hidden" name="checkbox'+index+'[id]" value="'+id+'">'+
+                            '<input class="simpul'+index+' sim" type="hidden" name="sim" value="'+kesimpulan+'">'+                            
+                            '</div>'+                            
                             '</td>'+
                             '<td>'+
                             '<div class="media">'+
