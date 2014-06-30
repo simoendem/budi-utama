@@ -1,5 +1,3 @@
-
-
     <div class="pageheader">
       <h2><i class="fa fa-users"></i>Students</h2>
       <div class="breadcrumb-wrapper">

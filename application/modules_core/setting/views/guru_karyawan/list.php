@@ -30,41 +30,42 @@
         <div class="panel-body">
           <div class="table-responsive">
             <table class="table" id="table1">
-		                            <thead>
-		                                <tr>
-		                                    <th>#</th>
-		                                    <th>NIK</th>
-		                                    <th>Nama Lengkap</th>
-                                        <th>Gender</th>
-		                                    <th>Tmpt. Lahir</th>
-                                        <th>Tgl. Lahir</th>
-                                        <th>HP</th>
-                                        <th>Email</th>
-                                        <th>Gol.</th>
-		                                    <th style="width:10%;"></th>
-		                                </tr>
-		                            </thead>
-		                            <tbody>
-		                                <?php $no = 1; foreach ($rs_guru_karyawan as $result): ?>
-		                                    <tr>
-		                                        <td><?php echo $no; ?></td>
-		                                        <td><?php echo $result->nik; ?></td>
-                                            <td><?php echo $result->nama_lengkap; ?></td>
-                                            <td><?php echo $result->jenis_kelamin; ?></td>
-                                            <td><?php echo $result->tempat_lahir; ?></td>
-                                            <td><?php echo date("d-m-Y",strtotime($result->tanggal_lahir)); ?></td>
-                                            <td><?php echo $result->telpon_hp; ?></td>
-                                            <td><?php echo $result->email; ?></td>
-                                            <td><?php echo $result->golongan; ?></td>                                            
-                                            <td>
-	                                               <a href="<?php echo base_url(); ?>setting/guru_karyawan/edit/<?php echo $result->nik; ?>">
-	                                                <i class="fa fa-file"></i></a>
-	                                                &nbsp;&nbsp;
-	                                                <i class="fa fa-trash-o" onclick="hapus(<?php echo $result->nik ?>,'<?php echo $result->nama_lengkap ?>')"></i>
-		                                        </td>
-		                                    </tr>
-		                                <?php $no++; endforeach ; ?>
-		                            </tbody>           </table>
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>NIK</th>
+                      <th>Nama Lengkap</th>
+                      <th>Gender</th>
+                      <th>Tmpt. Lahir</th>
+                      <th>Tgl. Lahir</th>
+                      <th>HP</th>
+                      <th>Email</th>
+                      <th>Gol.</th>
+                      <th style="width:10%;"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <?php $no = 1; foreach ($rs_guru_karyawan as $result): ?>
+                      <tr>
+                          <td><?php echo $no; ?></td>
+                          <td><?php echo $result->nik; ?></td>
+                          <td><?php echo $result->nama_lengkap; ?></td>
+                          <td><?php echo $result->jenis_kelamin; ?></td>
+                          <td><?php echo $result->tempat_lahir; ?></td>
+                          <td><?php echo date("d-m-Y",strtotime($result->tanggal_lahir)); ?></td>
+                          <td><?php echo $result->telpon_hp; ?></td>
+                          <td><?php echo $result->email; ?></td>
+                          <td><?php echo $result->golongan; ?></td>                                            
+                          <td>
+                               <a href="<?php echo base_url(); ?>setting/guru_karyawan/edit/<?php echo $result->nik; ?>">
+                                <i class="fa fa-file"></i></a>
+                                &nbsp;&nbsp;
+                                <i class="fa fa-trash-o" onclick="hapus(<?php echo $result->nik ?>,'<?php echo $result->nama_lengkap ?>')"></i>
+                          </td>
+                      </tr>
+                  <?php $no++; endforeach ; ?>
+              </tbody>           
+            </table>
           </div><!-- table-responsive -->
           <div class="clearfix mb30"></div>
         </div><!-- panel-body -->

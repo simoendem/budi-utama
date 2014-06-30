@@ -1,5 +1,3 @@
-
-
     <div class="pageheader">
       <h2><i class="fa fa-money"></i> School Payment</h2>
       <div class="breadcrumb-wrapper">
@@ -27,43 +25,108 @@
 			  List of Budi Utama students payments.
           </p>
         </div>
+
+    <div class="panel-heading select-students-container">
+    <form id="pembayaran" novalidate="novalidate" action="<?php echo base_url(); ?>setting/payment" method="POST">
+      <div class="form-group">
+        <div class="col-sm-2" style="padding-top:10px;">
+          <font size="4">Tahun Ajaran <?php echo ucwords(strtolower($r_ta->status)); ?></font>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" name="tahun_ajaran" value="<?php echo $r_ta->tahun_ajaran; ?>" class="form-control" disabled="" style="text-align:center;">
+          <input type="hidden" name="ta_id" value="<?php echo $r_ta->id; ?>">
+        </div>
+      </div>    
+      <div class="col-sm-4">
+      <select name="cost_type" class="form-control input-sm mb15" required>
+        <option value="">-- SELECT --</option>
+        <?php foreach ($rs_item_type as $data) : ?>
+            <option value="<?php echo $data->id; ?>" <?php if(@$cost_type==$data->id){ echo "SELECTED='SELECTED'";} ?>><?php echo $data->name; ?></option>
+        <?php endforeach ; ?>        
+      </select>       
+      </div>
+      <div class="col-sm-6">
+        <input type="text" name="nama_siswa" placeholder="Nomor Induk atau Nama Siswa" title="" value="<?php echo @$nama_siswa; ?>"
+        data-toggle="tooltip" data-trigger="hover" class="nis form-control tooltips" data-original-title="Masukkan NIS" required>        
+      </div>  
+      <div class="col-sm-2">
+        <button class="btn btn-warning btn-cari-bayar">Cari</button>
+      </div>    
+    </form> 
+    </div>   
+
+
         <div class="panel-body">
-          <div class="table-responsive payment">
-            <table class="table table-hover" id="table1">
+          <div class="table-responsive payment" >
+            <table class="table table-hover">
                 <thead>
                     <tr>
-	                <th style="width:20%;"># ID</th>
-	                <th style="width:40%;">Name</th>
-	                <th style="width:20%;">Grade</th>
+	                <th style="width:10%;">NIS</th>
+	                <th style="width:30%;">Name</th>
+	                <th style="width:30%;">Grade</th>
+                  <th style="width:10%;">Class</th>
 	                <th style="width:20%;">Status Monthly Payment</th>
                     </tr>
                 </thead>
 
                 <tbody>
-					<tr class="gradeA odd" href="payment/details/09440">
+                <?php if(!empty($rs_siswa)){ ?>
+					        <?php $no = 1; foreach ($rs_siswa as $siswa): ?>
+                      <tr>
+                          <td><?php echo $siswa->nis; ?></td>
+                          <td><?php echo $siswa->nama_lengkap; ?></td>
+                          <td><?php echo $siswa->unit; ?></td>
+                          <td><?php echo $siswa->id_kelas; ?><?php echo $siswa->selisih; ?></td>
+                          <td class="center">
+                            <?php 
+                              if($siswa->selisih>0){ 
+                              $x=floor($siswa->selisih/30);
+                              if($x>0){
+                            ?>
+                              <span class="label label-danger"><?php echo $x; ?> month late</span>
+                            <?php }else{ ?>
+                              <span class="label label-danger"><?php echo $siswa->selisih; ?> day late</span>
+                            <?php } ?>                         
+                            &nbsp; <span class="label label-default"><?php echo $siswa->bulan; ?></span>
+                            <?php }else{ ?>
+                              not yet
+                            <?php } ?>                            
+                          </td>
+                      </tr>
+                  <?php $no++; endforeach ; ?>
+                <?php }else{ ?>
+                      <tr><td colspan="5" style="text-align:center"> - no data - </td></tr>
+                <?php } ?>
+<!--
+          <tr class="gradeA odd" href="payment/details/09440">
 	                    <td class="id sorting_1">090440</td>
 	                    <td class=" ">Fendrik Prayogo</td>
 	                    <td class=" ">Elementary School</td>
+                      <td class=" ">1B</td>
 	                    <td class="center "><span class="label label-warning">2 days late</span></td>                    
 					</tr>
 					<tr class="gradeA even" href="payment/details/09441">
 	                    <td class="id sorting_1">090441</td>
 	                    <td class=" ">Raden Agoeng Bhimasta</td>
 	                    <td class=" ">Elementary School</td>
+                      <td class=" ">1C</td>
 	                    <td class="center "><span class="label label-warning">12 days late</span></td>	                    
 					</tr>			
 					<tr class="gradeA odd" href="payment/details/09442">
 	                    <td class="id sorting_1">090442</td>
 	                    <td class=" ">Simon Megadewandanu</td>
 	                    <td class=" ">Kindergarten</td>
-	                    <td class="center "><span class="label label-danger">1 month late</span>&nbsp; &nbsp;<span class="label label-default">May</span></td>	                    
+	                    <td class=" ">1D</td>
+                      <td class="center "><span class="label label-danger">1 month late</span>&nbsp; &nbsp;<span class="label label-default">May</span></td>	                    
 					</tr>
 					<tr class="gradeA even" href="payment/details/09443">
 	                    <td class="id sorting_1">090443</td>
 	                    <td class=" ">Albertus Satria Yudha</td>
 	                    <td class=" ">Junior High School</td>
-	                    <td class="center "><span class="label label-danger">1 month late</span>&nbsp; &nbsp;<span class="label label-default">May</span></td>	                    
-					</tr>								
+	                    <td class=" ">2E</td>
+                      <td class="center "><span class="label label-danger">1 month late</span>&nbsp; &nbsp;<span class="label label-default">May</span></td>	                    
+					</tr>
+-->								
                 </tbody>
 
 
