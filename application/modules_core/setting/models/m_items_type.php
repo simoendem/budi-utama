@@ -15,7 +15,7 @@ class m_items_type extends CI_Model {
         $sql = "SELECT it.*
             FROM items_type it
             WHERE 
-                it.name IN ('DPP','SPP','Denda')
+                it.name IN ('DPP','SPP','Denda','Ekstra Kulikuler')
             ORDER BY it.id";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
@@ -24,6 +24,21 @@ class m_items_type extends CI_Model {
             return array();
         }
     }
+
+     function get_all_items_type_for_student_payment(){
+        $sql = "SELECT it.*
+            FROM items_type it
+            WHERE 
+                it.name IN ('DPP','SPP','Ekstra Kulikuler')
+            ORDER BY it.id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+
 
     function get_item_type_by_id($id){
         return $this->db->get_where('items_type',array('id'=>$id))->row();

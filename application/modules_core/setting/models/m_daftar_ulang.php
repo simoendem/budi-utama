@@ -8,10 +8,11 @@ class m_daftar_ulang extends CI_Model {
     }
 
     function get_siswa_no_daftar_ulang($thn) {
-        $sql = "SELECT u.nis,u.nama_lengkap FROM users_siswa_alumni u 
+        $sql = "SELECT u.nis,u.nama_lengkap,u.id_unit FROM users_siswa_alumni u 
             WHERE NOT EXISTS (SELECT *
                FROM   daftar_ulang d
                WHERE  u.nis = d.nis AND d.tahun_ajaran = '$thn') 
+            AND status='SISWA'
             ";
         $query = $this->db->query($sql);
         // echo '<pre>'; print_r($query->result());die;

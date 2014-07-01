@@ -132,4 +132,29 @@ class m_tahun_ajaran extends CI_Model {
     function delete_administration_costs($params) {
        $this->db->delete('administration_costs',$params,array('id'=>$params['id']));
     }
+
+    function get_administration_cost_by_ta_name($ta,$nm,$iu){
+        $sql = "SELECT 
+                    it.id, it.name, ac.amount
+                FROM administration_costs ac
+                LEFT JOIN items_type it ON it.id=ac.item_type_id
+                WHERE
+                    ac.tahun_ajaran_id='$ta' AND
+                    it.name='$nm' AND
+                    ac.unit_id='$iu'
+                ";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return array();
+        }
+    }
+
+    function get_all_periods(){
+        return $this->db->get('periods')->result();
+    }
+
 }

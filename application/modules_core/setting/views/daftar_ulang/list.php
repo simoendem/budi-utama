@@ -11,7 +11,12 @@
         
     <div class="contentpanel">
       
-
+      <?php if ($message != null ) : ?>
+      <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Well done!</strong>   <?php echo $message; ?>
+        </div>
+      <?php endif ; ?>
 
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -24,21 +29,23 @@
           <div class="table-responsive">
             <table class="table" id="table1">
               <thead>
-                <th style="width:10%;">#</th>
+                <th style="width:10%;">NIS</th>
                 <th style="width:20%;">Nama</th>
                 <th style="width:20%;"></th>
               </thead>
               <tbody>
-                                    <?php $no = 1; foreach ($siswas as $siswa): ?>
-                                        <tr>
-                                            <td><?php echo $siswa->nis; ?></td>
-                                            <td><?php echo $siswa->nama_lengkap; ?></td>
-                                            <td>
-                                               <a href="<?php echo base_url(); ?>setting/daftar_ulang/add_process/<?php echo $siswa->nis; ?>">
-                                               Daftar Ulang</a>
-                                            </td>
-                                        </tr>
-                                    <?php $no++; endforeach ; ?>
+                  <?php $no = 1; foreach ($siswas as $siswa): ?>
+                      <tr>
+                          <td><?php echo $siswa->nis; ?></td>
+                          <td><?php echo $siswa->nama_lengkap; ?></td>
+                          <td>
+                             <!--<a href="<?php echo base_url(); ?>setting/daftar_ulang/add_process/<?php echo $siswa->nis; ?>">
+                             Daftar Ulang</a>-->
+                             <a href="#" onclick="daftar_ulang(<?php echo $siswa->nis ?>,'<?php echo $siswa->id_unit ?>','<?php echo $siswa->nama_lengkap ?>')">
+                             Daftar Ulang</a>
+                          </td>
+                      </tr>
+                  <?php $no++; endforeach ; ?>
               </tbody>
            </table>
           </div><!-- table-responsive -->
@@ -75,4 +82,10 @@
     
   
   });
+</script>
+<script type="text/javascript" language="javascript">
+  function daftar_ulang(no,unit,nama){
+    //if(confirm('Daftar Ulang akan men-Generate Invoice SPP & Ekstra Kulikuler untuk '+nama+'?'))
+      window.location = "<?php echo base_url(); ?>setting/daftar_ulang/add_process/"+no+"/"+unit;
+  }
 </script>
