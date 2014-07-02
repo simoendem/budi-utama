@@ -76,7 +76,7 @@
                           <td><?php echo $siswa->nis; ?></td>
                           <td><?php echo $siswa->nama_lengkap; ?></td>
                           <td><?php echo $siswa->unit; ?></td>
-                          <td><?php echo $siswa->id_kelas; ?><?php echo $siswa->selisih; ?></td>
+                          <td><?php echo $siswa->id_kelas; ?><?php echo $siswa->selisih; //mung nggo ngetes, hapus ae nek kelase wis ana ?></td>
                           <td class="center">
                             <?php 
                               if($siswa->selisih>0){ 

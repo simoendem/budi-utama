@@ -148,8 +148,8 @@ $this->load->model('m_kelas');
 <script>
 jQuery(document).ready(function(){
 
-    //Check
-    $('.ckbox').on('click', 'input', function(){
+  //Check
+    $('#rekapTagihan').on('click', '.checkboxStud', function(){
         var t = jQuery(this);
         if(t.is(':checked')){
             t.closest('tr').addClass('selected');

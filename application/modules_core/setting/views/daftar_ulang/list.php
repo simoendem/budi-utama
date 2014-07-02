@@ -85,7 +85,7 @@
 </script>
 <script type="text/javascript" language="javascript">
   function daftar_ulang(no,unit,nama){
-    //if(confirm('Daftar Ulang akan men-Generate Invoice SPP & Ekstra Kulikuler untuk '+nama+'?'))
+    //if(confirm('Daftar Ulang akan men-Generate Invoice untuk '+nama+'?'))
       window.location = "<?php echo base_url(); ?>setting/daftar_ulang/add_process/"+no+"/"+unit;
   }
 </script>

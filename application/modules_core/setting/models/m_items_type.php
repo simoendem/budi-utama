@@ -15,7 +15,7 @@ class m_items_type extends CI_Model {
         $sql = "SELECT it.*
             FROM items_type it
             WHERE 
-                it.name IN ('DPP','SPP','Denda','Ekstra Kulikuler')
+                it.name IN ('DPP','SPP','Denda')
             ORDER BY it.id";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
@@ -29,7 +29,7 @@ class m_items_type extends CI_Model {
         $sql = "SELECT it.*
             FROM items_type it
             WHERE 
-                it.name IN ('DPP','SPP','Ekstra Kulikuler')
+                it.name IN ('DPP','SPP')
             ORDER BY it.id";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
