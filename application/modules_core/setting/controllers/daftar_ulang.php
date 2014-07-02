@@ -66,17 +66,17 @@ class Daftar_ulang extends Admin_base {
 
 		if ($this->m_daftar_ulang->daftar_ulang_siswa($params)) {
 			$data['message'] = "Siswa ".$params['nis']." berhasil didaftarulangkan..";
-			$this->generate_invoice_spp_extra($params,$id_unit);
+			$this->_generate_invoice($params,$id_unit);
 		}
 		$this->session->set_flashdata($data);		
 		redirect('setting/daftar_ulang/');
 
 	}
 
-	function generate_invoice_spp_extra($params,$id_unit){
+	function _generate_invoice($params,$id_unit){
 		$ta_aktif	  = $this->m_tahun_ajaran->get_tahun_aktif();
 		$amount_spp   = $this->m_tahun_ajaran->get_administration_cost_by_ta_name($ta_aktif->id,'SPP',$id_unit);
-		$amount_extra = $this->m_tahun_ajaran->get_administration_cost_by_ta_name($ta_aktif->id,'Ekstra Kulikuler',$id_unit);
+		//$amount_extra = $this->m_tahun_ajaran->get_administration_cost_by_ta_name($ta_aktif->id,'Ekstrakurikuler',$id_unit);
 		$periods	  = $this->m_tahun_ajaran->get_all_periods();
 
 		//generate SPP
@@ -131,7 +131,7 @@ class Daftar_ulang extends Admin_base {
 		}
 	
 	/*
-		//generate Ekstra Kulikuler
+		//generate Ekstrakurikuler
 		foreach ($periods as $key => $value) {
 			# code...
 			$period_name = $value->index."-".$ta_aktif->tahun_ajaran;

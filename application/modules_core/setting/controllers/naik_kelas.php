@@ -12,6 +12,7 @@ class Naik_kelas extends Admin_base {
 		$this->load->model('m_permission');
 		$this->load->model('m_kelas');
 		$this->load->model('m_tahun_ajaran');
+		$this->load->model('m_pendaftaran');
 		// load permission
 		$this->load->helper('text');
 		// page title
@@ -29,12 +30,12 @@ class Naik_kelas extends Admin_base {
 		// user detail
 		$data['user'] = $this->user;
 		// data tahun ajaran
-		$data['tahun']				= $this->m_tahun_ajaran->get_tahun_aktif();
+		$data['tahun']		= $this->m_tahun_ajaran->get_tahun_aktif();
 		$thn = $data['tahun']->tahun_ajaran;
 		// data unit
-		$data['ls_unit']			= $this->m_extra->get_unit();
+		$data['ls_unit']	= $this->m_extra->get_unit();
 		// data kelas
-		$data['kelass']				= $this->m_kelas->get_kelas_buka_by_tahun($thn);
+		$data['kelass']		= $this->m_kelas->get_kelas_buka_by_tahun($thn);
 		// data siswa di kelas itu
 				
 		// load template
@@ -80,6 +81,32 @@ class Naik_kelas extends Admin_base {
 			// echo "<pre>"; print_r($input);die;
 			// get assigned student
 			$update = $this->m_kelas->update_siswa_kesimpulan($id,$input);
+
+			$skl = $this->m_kelas->get_siswa_kelas_lengkap_row($id);	
+			$jjg = $skl->jenjang;
+			$jjs = $skl->jenjang_siswa;
+			$tgkt= $jjs;
+			$slsh= abs($jjs-$skl->tingkat);
+			if($jjs<$jjg && $jjs>0 && ($slsh==0)){
+				switch ($value['kesimpulan']) {
+					case 'NAIK KELAS':
+							$tgkt=$jjs+1;
+						break;
+					case 'TINGGAL KELAS':
+							$tgkt=$skl->tingkat;
+						break;
+					default:
+							$tgkt=$jjs;
+						break;
+				}
+			}		
+
+			$params  = array(
+				'nis' => $skl->nis,
+				'date_updated' => $now,
+				'jenjang' => $tgkt
+				);
+			$this->m_pendaftaran->update_users_siswa_alumni($params);
 		}
 		 // //add the header here
 	    header('Content-Type: application/json');
@@ -87,7 +114,6 @@ class Naik_kelas extends Admin_base {
     	// get assigned student
 		// $data['siswas']	= $this->m_kelas->get_siswa_kelas();
 	}
-
 
 	// page title
 	public function page_title() {

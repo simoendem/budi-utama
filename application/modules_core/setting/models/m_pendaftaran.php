@@ -72,4 +72,13 @@ class m_pendaftaran extends CI_Model {
         // echo '<pre>'; print_r($query->result());die;
     }    
 
+    function update_users_siswa_alumni($params){
+        $q = $this->db->update('users_siswa_alumni',$params,array('nis'=>$params['nis']));
+        if ($q) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

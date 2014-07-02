@@ -233,4 +233,21 @@ class m_kelas extends CI_Model {
             return array();
         } 
     }
+
+    function get_siswa_kelas_lengkap_row($id){
+        $sql =  "SELECT sk.id,sk.nis,rk.tingkat,ru.jenjang,ru.id_unit,usa.jenjang AS jenjang_siswa
+                    FROM siswa_kelas sk
+                    LEFT JOIN kelas_aktif ka ON ka.id_buka=sk.id_buka
+                    LEFT JOIN ref_kelas rk ON rk.id=ka.id_kelas
+                    LEFT JOIN ref_unit ru ON ru.id_unit=rk.id_unit
+                    LEFT JOIN users_siswa_alumni usa ON usa.nis=sk.nis
+                    WHERE sk.id = '$id' AND sk.status='BERAKHIR'
+                ";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return array();
+        } 
+    }
 }
