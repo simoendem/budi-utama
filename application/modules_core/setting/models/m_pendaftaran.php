@@ -81,4 +81,22 @@ class m_pendaftaran extends CI_Model {
         }
     }
 
+    function get_users_siswa_alumni_by_nis($nis) {
+        $sql = "SELECT usa.nis,rk.tingkat,ru.jenjang,usa.jenjang AS jenjang_siswa,sk.id AS sk_id 
+                FROM users_siswa_alumni usa
+                LEFT JOIN siswa_kelas sk ON sk.nis=usa.nis
+                LEFT JOIN kelas_aktif ka ON ka.id_buka=sk.id_buka
+                LEFT JOIN ref_kelas rk ON rk.id=ka.id_kelas
+                LEFT JOIN ref_unit ru ON ru.id_unit=rk.id_unit
+                WHERE usa.nis = '$nis' 
+                ORDER BY sk.tahun_ajaran DESC
+                LIMIT 1";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return array();
+        }        
+    }
+
 }
