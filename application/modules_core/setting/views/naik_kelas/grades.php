@@ -149,14 +149,10 @@ $this->load->model('m_kelas');
 jQuery(document).ready(function(){
 
 <<<<<<< HEAD
-  //Check
-=======
-<<<<<<< HEAD
     //Check
 =======
   //Check
 >>>>>>> naik kelas, sebagian daftar ulang, ganti db
->>>>>>> generate lanjut, ceken mbok menowo ono sing kerewrite
     $('#rekapTagihan').on('click', '.checkboxStud', function(){
         var t = jQuery(this);
         if(t.is(':checked')){
