@@ -56,7 +56,7 @@ class Payment extends Admin_base {
 		$this->load->view('dashboard/admin/template', $data);
 	}
 	
-	public function details($id)
+	public function details($nis,$ta_id,$type='')
 	{
 		// user_auth
 		$this->check_auth('R');
@@ -70,7 +70,7 @@ class Payment extends Admin_base {
 		$data['rs_role'] = $this->m_role->get_all_role();
 		// get permission list
 		$data['rs_permission'] = $this->m_permission->get_all_permission();
-		$data['id_students'] = $id;
+		$data['id_students'] = $nis;
 		// load template
 		$data['title']	= "Detail Payment Transactions PinapleSAS";
 		$data['main_content'] = "setting/payment/details";
