@@ -43,7 +43,8 @@
         <?php foreach ($rs_item_type as $data) : ?>
             <option value="<?php echo $data->id; ?>" <?php if(@$cost_type==$data->id){ echo "SELECTED='SELECTED'";} ?>><?php echo $data->name; ?></option>
         <?php endforeach ; ?>        
-      </select>       
+      </select>
+        <input type="hidden" id="cost_type" value="<?php echo @$cost_type; ?>" />       
       </div>
       <div class="col-sm-6">
         <input type="text" name="nama_siswa" placeholder="Nomor Induk atau Nama Siswa" title="" value="<?php echo @$nama_siswa; ?>"
@@ -55,23 +56,25 @@
     </form> 
     </div>   
 
-
         <div class="panel-body">
-          <div class="table-responsive payment" >
+          <!--<div class="table-responsive payment" >-->
+          <div>
             <table class="table table-hover">
                 <thead>
                     <tr>
 	                <th style="width:10%;">NIS</th>
-	                <th style="width:30%;">Name</th>
-	                <th style="width:30%;">Grade</th>
+	                <th style="width:25%;">Name</th>
+	                <th style="width:25%;">Grade</th>
                   <th style="width:10%;">Class</th>
 	                <th style="width:20%;">Status Monthly Payment</th>
+                  <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
                 <?php if(!empty($rs_siswa)){ ?>
 					        <?php $no = 1; foreach ($rs_siswa as $siswa): ?>
+                      <!--<tr href="payment/details/<?php echo $siswa->nis; ?>/<?php echo $siswa->tahun_ajaran_id; ?>">-->
                       <tr>
                           <td><?php echo $siswa->nis; ?></td>
                           <td><?php echo $siswa->nama_lengkap; ?></td>
@@ -87,11 +90,12 @@
                             <?php }else{ ?>
                               <span class="label label-danger"><?php echo $siswa->selisih; ?> day late</span>
                             <?php } ?>                         
-                            &nbsp; <span class="label label-default"><?php echo $siswa->bulan; ?></span>
+                            &nbsp; <span class="label label-warning"><?php echo $siswa->bulan; ?></span>
                             <?php }else{ ?>
-                              not yet
+                              <span class="label label-default">not monthly payment</span>
                             <?php } ?>                            
                           </td>
+                          <td><button type="button" class="btn btn-success" onclick="pay_now(<?php echo $siswa->nis; ?>,'<?php echo $r_ta->id; ?>')">Pay</button></td>
                       </tr>
                   <?php $no++; endforeach ; ?>
                 <?php }else{ ?>
@@ -152,11 +156,17 @@
 
 <script src="<?php echo base_url();?>bracket/js/custom.js"></script>
 <script>
-  jQuery(document).ready(function() {
-    
+ function pay_now(nis,ta_id){
+    //if(confirm('Daftar Ulang akan men-Generate Invoice untuk '+nama+'?'))
+      //window.location = "<?php echo base_url(); ?>setting/payment/details/"+nis+"/"+ta_id;
+      var tp = document.getElementById("cost_type").value;
+      window.open("<?php echo base_url(); ?>setting/payment/details/"+nis+"/"+ta_id+"/"+tp,"title:payment-details","width=960,height=600,scrollbars=yes,top=60,left=200");
+  }
+/*
+  jQuery(document).ready(function() {  
     jQuery('#table1').dataTable();
     jQuery('.payment tbody tr').click(function() {    
-       window.open(jQuery(this).attr("href"),"payment-details", "width=960,height=600,scrollbars=yes");
+       window.open(jQuery(this).attr("href"),"payment-details", "width=960,height=600,scrollbars=yes,top=60,left=200");
     });
     // Chosen Select
     jQuery("select").chosen({
@@ -164,9 +174,8 @@
       'white-space': 'nowrap',
       disable_search_threshold: 10
     });
-    
-  
   });
+*/
 </script>
 
 
