@@ -82,7 +82,8 @@ class m_pendaftaran extends CI_Model {
     }
 
     function get_users_siswa_alumni_by_nis($nis) {
-        $sql = "SELECT usa.nis,rk.tingkat,ru.jenjang,usa.jenjang AS jenjang_siswa,sk.id AS sk_id 
+        $sql = "SELECT  usa.nis,rk.tingkat,ru.jenjang,usa.jenjang AS jenjang_siswa,sk.id AS sk_id,
+                        usa.nama_lengkap
                 FROM users_siswa_alumni usa
                 LEFT JOIN siswa_kelas sk ON sk.nis=usa.nis
                 LEFT JOIN kelas_aktif ka ON ka.id_buka=sk.id_buka
