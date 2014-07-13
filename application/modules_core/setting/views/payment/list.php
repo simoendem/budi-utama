@@ -95,7 +95,8 @@
                               <span class="label label-default">not monthly payment</span>
                             <?php } ?>                            
                           </td>
-                          <td><button type="button" class="btn btn-success" onclick="pay_now(<?php echo $siswa->nis; ?>,'<?php echo $r_ta->id; ?>')">Pay</button></td>
+                          <td><button type="button" class="btn btn-success" 
+                          onclick="pay_now(<?php echo $siswa->nis; ?>,'<?php echo $r_ta->id; ?>','<?php echo $siswa->item_type_id; ?>')">Pay</button></td>
                       </tr>
                   <?php $no++; endforeach ; ?>
                 <?php }else{ ?>
@@ -156,11 +157,12 @@
 
 <script src="<?php echo base_url();?>bracket/js/custom.js"></script>
 <script>
- function pay_now(nis,ta_id){
+ function pay_now(nis,ta_id,iti){
     //if(confirm('Daftar Ulang akan men-Generate Invoice untuk '+nama+'?'))
       //window.location = "<?php echo base_url(); ?>setting/payment/details/"+nis+"/"+ta_id;
-      var tp = document.getElementById("cost_type").value;
-      window.open("<?php echo base_url(); ?>setting/payment/details/"+nis+"/"+ta_id+"/"+tp,"title:payment-details","width=960,height=600,scrollbars=yes,top=60,left=200");
+      
+      //var tp = document.getElementById("cost_type").value;
+      window.open("<?php echo base_url(); ?>setting/payment/details/"+nis+"/"+ta_id+"/"+iti,"title:payment-details","width=960,height=600,scrollbars=yes,top=60,left=200");
   }
 /*
   jQuery(document).ready(function() {  

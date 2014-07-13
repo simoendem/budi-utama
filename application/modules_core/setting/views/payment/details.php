@@ -1,5 +1,4 @@
-
-
+<form method="POST" action="<?php echo base_url(); ?>setting/payment/payment_process">
     <div class="contentpanel">
 
       <?php if ($message != null ) : ?>
@@ -11,59 +10,85 @@
       
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Payment Details : <?php echo $id_students?></h3>
+	      	<font size="+1"><div style="float:left;width:50%;">
+	      	Payment Details for: <strong><?php echo @$r_student->nama_lengkap; ?> (<?php echo @$r_student->nis; ?>)</strong>
+	      	</div>
+  			<div style="float:right;width:50%;text-align:right;">
+  			Tahun Ajaran: <strong><?php echo @$r_ta->tahun_ajaran; ?></strong>
+  			</div></font>
         </div>
+
         <div class="panel-body">
           <div class="table-responsive payment">
             <table class="table table-hover payment-details" id="table1">
                 <thead>
                     <tr>
-                    <th style="width:5%;"><div class="checkbox block"><label><input type="checkbox"></label></div></th>	
+                    <th style="width:5%;"><div class="ckbox ckbox-success"><input type="checkbox" id="checkAll" onchange="totalchange()"><label for="checkAll"></label></div></th>	
 	                <th style="width:5%;">#</th>
-	                <th style="width:15%;">Type</th>
-	                <th class="right" style="width:20%%;">Cost</th>
-	                <th class="right" style="width:15%;">Scholarship</th>
-	                <th style="width:15%;">Fines</th>	                
-	                <th class="right" style="width:25%;">Amounts</th>                	                
+	                <th style="width:20%;">Type</th>
+	                <th style="width:17%;">Cost</th>
+	                <th style="width:17%;">Scholarship</th>
+	                <th class="right" style="width:16%;">Fines</th>	                
+	                <th class="right" style="width:20%;">Amount to Pay</th>                	                
                     </tr>
                 </thead>
-				<tfoot>
+                <tbody>
+                <?php $total=0; $no = 1; foreach ($rs_invoices as $invo) :?>
+                	<tr class="gradeA odd">
+                		<input type="hidden" name="<?php echo $no;?>[invoice_id]" value="<?php echo $invo->invoice_id; ?>">
+                		<input type="hidden" name="<?php echo $no;?>[invoice_item_id]" value="<?php echo $invo->id; ?>">
+						<td class="">
+							<div class="ckbox ckbox-success">
+								<input id="<?php echo $no;?>[pay_check]" name="<?php echo $no;?>[pay_check]" class="check-pay" type="checkbox" onchange="totalchange()">
+								<label for="<?php echo $no;?>[pay_check]"></label>
+							</div>
+						</td>		
+	                    <td class="id sorting_1"><?php echo $no; ?></td>
+	                    <td class="">
+	                    	<?php echo $invo->item_name; ?>
+	                    	<?php if(!empty($invo->bulan)){echo "(".$invo->bulan.")";} ?>
+	                    </td>
+	                    <td class="">Rp 
+	                    	<input class="amount-price" id="<?php echo $no;?>[amount]"
+	                    	readonly="true" type="text" name="<?php echo $no;?>[amount]" value="<?php echo number_format($invo->amount,0,',','.'); ?>" />
+	                    </td>
+	                    <td class="">Rp 
+	                    	<input class="amount-price" id="<?php echo $no;?>[scholarship]" 
+	                    	readonly="true" type="text" name="<?php echo $no;?>[scholarship]" value="<?php echo number_format($invo->scholarship,0,',','.'); ?>" />
+	                    </td>                    
+	                    <td class="price">Rp
+	                    	<input class="amount-price" type="text" placeholder="total fines" name="<?php echo $no;?>[fines]" 
+	                    	onchange="totalchange()" id="<?php echo $no;?>[fines]"
+	                    	value="<?php $denda=$invo->fines*$invo->selisih;
+	                    	if($invo->selisih>0){echo number_format($denda,0,',','.');}else{echo '0';} ?>">
+	                    </td>
+	                    <td class="price">Rp
+	                    	<input class="amount-price" type="text" name="<?php echo $no;?>[jumlah]" onchange="totalchange()" readonly="true"
+	                    	id="<?php echo $no;?>[jumlah]" value="<?php $total=$total+($invo->amount-$invo->scholarship+$denda);
+	                    	echo number_format($invo->amount-$invo->scholarship+$denda,0,',','.'); ?>" />
+	                    </td>                   
+					</tr>
+                <?php $no++; endforeach; ?>		
+                <!--
+				<tr class="gradeA odd">
+					<td class=""><div class="checkbox block"><label><input name="payment" class="check-pay" type="checkbox"></label></div></td>		
+                    <td class="id sorting_1">1</td>
+                    <td class=" ">Juni Monthly Fees</td>
+                    <td class="price">Rp 500.000</td>
+                    <td class="price ">0</td>                    
+                    <td class=" "><input type="text" placeholder="total fines" class="pay-fines form-control"></td>
+                    <td class="price">Rp 500.000</td>                   
+				</tr>
+				-->
+                </tbody>
+                <tfoot>
 					<tr class="gradeA odd">
-	                    <td class="totals" colspan="6">Totals</td>
-	                    <td class="totals-value price">Rp 850.000</td>	                    
+	                    <td class="totals" colspan="6">Total</td>
+	                    <td class="totals-value price">Rp
+	                    <input class="amount-price" readonly="true" type="text" name="total" id="total"
+	                    value="0<?php //echo number_format($total,0,',','.'); ?>" /></td>	                    
 					</tr>															
 				</tfoot>
-                <tbody>
-					<tr class="gradeA odd">
-						<td class=""><div class="checkbox block"><label><input name="payment" class="check-pay" type="checkbox"></label></div></td>		
-	                    <td class="id sorting_1">1</td>
-	                    <td class=" ">Juni Monthly Fees</td>
-	                    <td class="price">Rp 500.000</td>
-	                    <td class="price ">0</td>                    
-	                    <td class=" "><input type="text" placeholder="total fines" class="pay-fines form-control"></td>
-	                    <td class="price">Rp 500.000</td>                   
-					</tr>								
-					<tr class="gradeA even">
-						<td class=""><div class="checkbox block"><label><input name="payment" class="check-pay" type="checkbox"></label></div></td>		
-	                    <td class="id sorting_1">2</td>
-	                    <td class=" ">Books</td>
-	                    <td class="price">Rp 200.000</td>
-	                    <td class="price ">0</td>                    
-	                    <td class=" "><input type="text" placeholder="total fines" class="pay-fines form-control"></td>
-	                    <td class="price">Rp 200.000</td>                   
-					</tr>					
-					<tr class="gradeA odd">
-						<td class=""><div class="checkbox block"><label><input name="payment" class="check-pay" type="checkbox"></label></div></td>		
-	                    <td class="id sorting_1">3</td>
-	                    <td class=" ">Extracurriculare</td>
-	                    <td class="price">Rp 150.000</td>
-	                    <td class="price ">0</td>                    
-	                    <td class=" "><input type="text" placeholder="total fines" class="pay-fines form-control"></td>
-	                    <td class="price">Rp 150.000</td>                   
-					</tr>					
-                </tbody>
-
-
            </table>
           </div><!-- table-responsive -->
           <div class="clearfix mb30"></div>
@@ -89,42 +114,44 @@
       </div>
       <div class="modal-body">
       	<div class="form-group has-error">
-		  <div class="radio"><label><input name="payment-method" type="radio" value="cash" required> Cash</label></div>
-		  <div class="radio"><label><input name="payment-method" type="radio" value="bank" required> Bank</label></div>
+		  <div class="radio"><label><input id="pay_cash" name="payment-method" type="radio" value="cash" required onchange="pay_option()"> Cash</label></div>
+		  <div class="radio"><label><input id="pay_bank" name="payment-method" type="radio" value="bank" required onchange="pay_option()"> Bank</label></div>
       	</div>
       	<div class="banks" style="display:none;">
 			<div class="form-group">
 				<label class="col-sm-3 control-label select-bank">Select Bank</label>
 				<div class="col-sm-3">
-					<select class="form-control input-sm mb15">
-	                  <option>BCA</option>
-	                  <option>Mandiri</option>
-	                  <option>BRI</option>
+					<select class="form-control input-sm mb15" name="department" id="department" >
+	                	<option value=""> - Pilih BANK - </option>
+	                <?php foreach ($rs_bank as $bank): ?>
+	               		<option value="<?php echo $bank->name;?>"><?php echo $bank->name;?></option>
+	            	<?php endforeach; ?>
 	                </select>			
 				</div>
 			</div>
 			<div class="form-group">
               <label class="col-sm-3 control-label">Bank Account Number <span class="asterisk">*</span></label>
               <div class="col-sm-9">
-                <input type="text" name="name" class="form-control" placeholder="type bank account number..." required>
+                <input id="rekening" type="text" name="rekening" class="form-control" placeholder="type bank account number..." >
               </div>
             </div>	
 			<div class="form-group">
               <label class="col-sm-3 control-label">Account Name <span class="asterisk">*</span></label>
               <div class="col-sm-9">
-                <input type="text" name="name" class="form-control" placeholder="account name..." required>
+                <input id="atas_nama" type="text" name="atas_nama" class="form-control" placeholder="account name..." >
               </div>
             </div>	            		
       	</div>      	
       </div>
       <div class="modal-footer" style="display:none;">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success">Pay !</button>
+        <input type="submit" class="btn btn-primary" value='Pay Now!' />
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div>
-    
+</form>
+
 <script src="<?php echo base_url();?>bracket/js/jquery-1.10.2.min.js"></script>
 <script src="<?php echo base_url();?>bracket/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url();?>bracket/js/bootstrap.min.js"></script>
@@ -140,10 +167,37 @@
 <!-- <script src="<?php echo base_url();?>bracket/js/custom.js"></script> -->
 <script>
   jQuery(document).ready(function() {
+  	//checkall
+    $('#table1').on('click', '#checkAll', function(){
+        if(this.checked) { // check select status
+            $('.check-pay').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+                $(this).closest('tr').addClass('selected');
+                $('.actions-button').css('display', 'block');
+            });
+        }else{
+            $('.check-pay').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                $(this).closest('tr').removeClass('selected');                
+                $('.actions-button').css('display', 'none');
+            });         
+        }
+        totalchange();
+    });
+      	
+    //Check
+    $('.ckbox input').click(function(){
+        var t = $(this);
+        if(t.is(':checked')){
+            t.closest('tr').addClass('selected');
+        } else {
+            t.closest('tr').removeClass('selected');
+        }
+    });
 
-	$('input:checkbox[name="payment"]').change(
+	$('input.check-pay').change(
     function(){
-        if ($('input:checkbox[name="payment"]').is(':checked')) {
+        if ($('input.check-pay').is(':checked')) {
 			$('.actions-button').css('display','block');
         }
         else{
@@ -151,7 +205,7 @@
         }
     });	
 
-	$('input:radio[name="payment-method"]').click(function() {
+	$('input.check-pay').click(function() {
 	    $(".modal-footer").toggle(this.checked);
 	});
 		
@@ -167,5 +221,56 @@
 	  
   });
 </script>
+<script>
+	function totalchange(){
+		var cost,scholar,fine,jmlh,ttl = 0;
+		var pc,ac,as,af,aj = '';
+		for (i = 1; i < <?php echo $no; ?>; i++) {
+			pc=i+'[pay_check]';
+			if(document.getElementById(pc).checked){
+				ac=i+'[amount]';
+				cost = document.getElementById(ac).value;
+				cost = Number(cost.replace(/\D/g,''));
+				
+				as=i+'[scholarship]';
+				scholar = document.getElementById(as).value;			
+				scholar = Number(scholar.replace(/\D/g,''));
+				
+				af=i+'[fines]';
+				fine = document.getElementById(af).value;
+	    		fine = Number(fine.replace(/\D/g,''));
+	    		document.getElementById(af).value = fine.formatMoney(0, ',', '.');
+			
+				aj=i+'[jumlah]';
+				jmlh=cost-scholar+fine;
+	    		document.getElementById(aj).value = jmlh.formatMoney(0, ',', '.');
+	    	}else{jmlh=0;}
+			ttl=ttl+jmlh;			
+		}
+		//alert(ttl);
+		document.getElementById('total').value = ttl.formatMoney(0, ',', '.');
+	}
 
+	function pay_option(){
+		if(document.getElementById('pay_bank').checked) {
+  			$("#department").attr('required', '');
+  			$("#rekening").attr('required', '');
+  			$("#atas_nama").attr('required', '');
+		}else{
+			$("#department").removeAttr('required');
+			$("#rekening").removeAttr('required');
+			$("#atas_nama").removeAttr('required');
+		}
+	}
 
+	Number.prototype.formatMoney = function(c, d, t){
+	var n = this, 
+	    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+	    d = d == undefined ? "." : d, 
+	    t = t == undefined ? "," : t, 
+	    s = n < 0 ? "-" : "", 
+	    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+	    j = (j = i.length) > 3 ? j % 3 : 0;
+	   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+	 };
+</script>

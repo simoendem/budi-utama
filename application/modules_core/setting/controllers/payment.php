@@ -13,6 +13,7 @@ class Payment extends Admin_base {
 		$this->load->model('m_tahun_ajaran');
 		$this->load->model('m_items_type');
 		$this->load->model('m_payments');
+		$this->load->model('m_pendaftaran');
 		// load permission
 		$this->load->helper('text');
 		// page title
@@ -49,14 +50,14 @@ class Payment extends Admin_base {
 			$params['ct']='';
 		}
 		$data['rs_siswa']= $this->m_payments->get_student_invoice_tahun_aktif($params);
-		
+		//echo "<pre>";print_r($data['rs_siswa']);echo "</pre>";
 		// load template
 		$data['title']	= "Payment Transactions PinapleSAS";
 		$data['main_content'] = "setting/payment/list";
 		$this->load->view('dashboard/admin/template', $data);
 	}
 	
-	public function details($nis,$ta_id,$type='')
+	public function details($nis,$ta_id,$iti)
 	{
 		// user_auth
 		$this->check_auth('R');
@@ -70,7 +71,12 @@ class Payment extends Admin_base {
 		$data['rs_role'] = $this->m_role->get_all_role();
 		// get permission list
 		$data['rs_permission'] = $this->m_permission->get_all_permission();
-		$data['id_students'] = $nis;
+		
+		$data['rs_bank'] = $this->m_payments->get_all_bank();
+		$data['r_student'] = $this->m_pendaftaran->get_users_siswa_alumni_by_nis($nis);
+		$data['r_ta'] = $this->m_tahun_ajaran->get_tahun_ajaran_by_id($ta_id);
+		$data['rs_invoices']= $this->m_payments->get_student_invoices($nis,$ta_id,$iti);
+		//echo "<pre>";print_r($data['rs_invoices']);echo "</pre>";
 		// load template
 		$data['title']	= "Detail Payment Transactions PinapleSAS";
 		$data['main_content'] = "setting/payment/details";

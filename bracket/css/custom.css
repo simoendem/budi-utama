@@ -108,3 +108,15 @@
 	color: #b1b1b1;
 }
 /* end Students Grade */
+/* amount input stye */
+input[readonly], input[readonly="readonly"]
+{
+    border:0;
+    background-color: transparent;
+}
+.amount-price{
+	text-align: right;
+	width: 80px;
+	margin-left: 10px;
+}
+/* end amount input stye */
