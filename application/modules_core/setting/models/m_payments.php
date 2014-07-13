@@ -10,6 +10,14 @@ class m_payments extends CI_Model {
     function add_payments($params) {
         $this->db->insert('payments',$params);
     }
+
+    function add_payment_items($params) {
+        $this->db->insert('payment_items',$params);
+    }
+
+    function add_payments_transfer($params) {
+        $this->db->insert('payments_transfer',$params);
+    }
     
     function get_all_bank(){
         return $this->db->get('bank')->result();
@@ -67,6 +75,7 @@ class m_payments extends CI_Model {
                   i.tahun_ajaran_id,
                   i.template_id,
                   it.name AS item_name,
+                  p.amount AS paid,
                   (SELECT sub_ac.amount 
                   FROM 
                     administration_costs sub_ac,

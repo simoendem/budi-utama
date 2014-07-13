@@ -120,7 +120,8 @@ class Daftar_ulang extends Admin_base {
 				'nis' => $params['nis'],
 				'tahun_ajaran_id' => $ta_aktif->id,
 				'journal_id' => $j_id, 
-				'template_id' => 1 //default paket for siswa baru
+				'template_id' => 1, //default paket for siswa baru
+				'nik' => $this->user['user_id']
 				);
 			$this->m_invoices->add_invoices($pi);
 			$i_id = $this->db->insert_id();
@@ -171,7 +172,8 @@ class Daftar_ulang extends Admin_base {
 				'nis' => $params['nis'],
 				'tahun_ajaran_id' => $ta_aktif->id,
 				'journal_id' => $j_id, 
-				'template_id' => 0 // for daftar ulang siswa
+				'template_id' => 0, // for daftar ulang siswa
+				'nik' => $this->user['user_id']
 				);
 			if($siswa_du->sk_id == null && $value->index=='07')
 				$pi['template_id'] = 1; // siswa baru
@@ -223,7 +225,8 @@ class Daftar_ulang extends Admin_base {
 				'nis' => $params['nis'],
 				'tahun_ajaran_id' => $ta_aktif->id,
 				'journal_id' => $j_id, 
-				'template_id' => 1 //default paket for siswa baru
+				'template_id' => 1, //default paket for siswa baru
+				'nik' => $this->user['user_id']
 				);
 			$this->m_invoices->add_invoices($pi);
 			$i_id = $this->db->insert_id();
@@ -270,7 +273,8 @@ class Daftar_ulang extends Admin_base {
 			'nis' => $params['nis'],
 			'tahun_ajaran_id' => $ta_aktif->id,
 			'journal_id' => $j_id, 
-			'template_id' => 0 //default for daftar ulang siswa
+			'template_id' => 0, //default for daftar ulang siswa
+			'nik' => $this->user['user_id']
 			);
 		if($siswa_du->sk_id == null)
 			$pi['template_id'] = 1; // for siswa baru
@@ -320,7 +324,8 @@ class Daftar_ulang extends Admin_base {
 			'nis' => $params['nis'],
 			'tahun_ajaran_id' => $ta_aktif->id,
 			'journal_id' => $j_id, 
-			'template_id' => 0 //default for daftar ulang siswa
+			'template_id' => 0, //default for daftar ulang siswa
+			'nik' => $this->user['user_id']
 			);
 		if($siswa_du->sk_id == null)
 			$pi['template_id'] = 1; // for siswa baru
@@ -371,7 +376,8 @@ class Daftar_ulang extends Admin_base {
 				'nis' => $params['nis'],
 				'tahun_ajaran_id' => $ta_aktif->id,
 				'journal_id' => $j_id, 
-				'template_id' => 2 //default paket for siswa akhir
+				'template_id' => 2, //default paket for siswa akhir
+				'nik' => $this->user['user_id']
 				);
 			$this->m_invoices->add_invoices($pi);
 			$i_id = $this->db->insert_id();

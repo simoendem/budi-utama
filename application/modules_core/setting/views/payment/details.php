@@ -18,6 +18,9 @@
   			</div></font>
         </div>
 
+        <input type="hidden" name="nis" value="<?php echo $r_student->nis; ?>">
+        <input type="hidden" name="nama_lengkap" value="<?php echo $r_student->nama_lengkap; ?>">
+
         <div class="panel-body">
           <div class="table-responsive payment">
             <table class="table table-hover payment-details" id="table1">
@@ -37,6 +40,8 @@
                 	<tr class="gradeA odd">
                 		<input type="hidden" name="<?php echo $no;?>[invoice_id]" value="<?php echo $invo->invoice_id; ?>">
                 		<input type="hidden" name="<?php echo $no;?>[invoice_item_id]" value="<?php echo $invo->id; ?>">
+                		<input type="hidden" name="<?php echo $no;?>[item_type_id]" value="<?php echo $invo->item_type_id; ?>">
+                		<input type="hidden" name="<?php echo $no;?>[item_name]" value="<?php echo $invo->item_name; ?>">
 						<td class="">
 							<div class="ckbox ckbox-success">
 								<input id="<?php echo $no;?>[pay_check]" name="<?php echo $no;?>[pay_check]" class="check-pay" type="checkbox" onchange="totalchange()">
@@ -50,36 +55,33 @@
 	                    </td>
 	                    <td class="">Rp 
 	                    	<input class="amount-price" id="<?php echo $no;?>[amount]"
-	                    	readonly="true" type="text" name="<?php echo $no;?>[amount]" value="<?php echo number_format($invo->amount,0,',','.'); ?>" />
+	                    	readonly="true" type="text" name="<?php echo $no;?>[amount]" value="<?php echo number_format($invo->amount-$invo->paid,0,',','.'); ?>" />
 	                    </td>
 	                    <td class="">Rp 
 	                    	<input class="amount-price" id="<?php echo $no;?>[scholarship]" 
 	                    	readonly="true" type="text" name="<?php echo $no;?>[scholarship]" value="<?php echo number_format($invo->scholarship,0,',','.'); ?>" />
 	                    </td>                    
-	                    <td class="price">Rp
+	                    <td class="price">
+	                    <?php $denda=0; if($invo->item_type_id==2){ ?>
+	                    	Rp
 	                    	<input class="amount-price" type="text" placeholder="total fines" name="<?php echo $no;?>[fines]" 
-	                    	onchange="totalchange()" id="<?php echo $no;?>[fines]"
+	                    	onchange="fineschange(<?php echo $no;?>)" id="<?php echo $no;?>[fines]"
 	                    	value="<?php $denda=$invo->fines*$invo->selisih;
 	                    	if($invo->selisih>0){echo number_format($denda,0,',','.');}else{echo '0';} ?>">
+	                    <?php }else{ ?>
+	                    	<input type="hidden" name="<?php echo $no;?>[fines]" id="<?php echo $no;?>[fines]"
+	                    	value="<?php $denda=$invo->fines*$invo->selisih;
+	                    	if($invo->selisih>0){echo number_format($denda,0,',','.');}else{echo '0';} ?>">
+	                    <?php } ?>
 	                    </td>
 	                    <td class="price">Rp
-	                    	<input class="amount-price" type="text" name="<?php echo $no;?>[jumlah]" onchange="totalchange()" readonly="true"
+	                    	<input class="amount-price" type="text" name="<?php echo $no;?>[jumlah]" onchange="dppchange('<?php echo $no;?>')" 
+	                    	<?php if($invo->item_type_id!=1){ ?> readonly="true" <?php }else{ ?> onchange="totalchange()" <?php } ?>
 	                    	id="<?php echo $no;?>[jumlah]" value="<?php $total=$total+($invo->amount-$invo->scholarship+$denda);
-	                    	echo number_format($invo->amount-$invo->scholarship+$denda,0,',','.'); ?>" />
+	                    	echo number_format($invo->amount-$invo->scholarship+$denda-$invo->paid,0,',','.'); ?>" />
 	                    </td>                   
 					</tr>
                 <?php $no++; endforeach; ?>		
-                <!--
-				<tr class="gradeA odd">
-					<td class=""><div class="checkbox block"><label><input name="payment" class="check-pay" type="checkbox"></label></div></td>		
-                    <td class="id sorting_1">1</td>
-                    <td class=" ">Juni Monthly Fees</td>
-                    <td class="price">Rp 500.000</td>
-                    <td class="price ">0</td>                    
-                    <td class=" "><input type="text" placeholder="total fines" class="pay-fines form-control"></td>
-                    <td class="price">Rp 500.000</td>                   
-				</tr>
-				-->
                 </tbody>
                 <tfoot>
 					<tr class="gradeA odd">
@@ -113,9 +115,10 @@
         <h4 class="modal-title" id="myModalLabel">Payment Method</h4>
       </div>
       <div class="modal-body">
+      	<div class="text"><label>Payer Name : <input name="payer_name" type="text" value="" required></label></div>
       	<div class="form-group has-error">
-		  <div class="radio"><label><input id="pay_cash" name="payment-method" type="radio" value="cash" required onchange="pay_option()"> Cash</label></div>
-		  <div class="radio"><label><input id="pay_bank" name="payment-method" type="radio" value="bank" required onchange="pay_option()"> Bank</label></div>
+		  <div class="radio"><label><input id="pay_cash" name="payment_method" type="radio" value="1" required onchange="pay_option()"> Cash</label></div>
+		  <div class="radio"><label><input id="pay_bank" name="payment_method" type="radio" value="2" required onchange="pay_option()"> Bank</label></div>
       	</div>
       	<div class="banks" style="display:none;">
 			<div class="form-group">
@@ -209,9 +212,9 @@
 	    $(".modal-footer").toggle(this.checked);
 	});
 		
-	$('input:radio[name="payment-method"]').change(
+	$('input:radio[name="payment_method"]').change(
     function(){
-        if ($(this).is(':checked')&& $(this).val() == 'bank') {
+        if ($(this).is(':checked')&& $(this).val() == '2') {
 			$('.banks').css('display','block');
         }
         else{
@@ -228,27 +231,71 @@
 		for (i = 1; i < <?php echo $no; ?>; i++) {
 			pc=i+'[pay_check]';
 			if(document.getElementById(pc).checked){
-				ac=i+'[amount]';
-				cost = document.getElementById(ac).value;
-				cost = Number(cost.replace(/\D/g,''));
-				
-				as=i+'[scholarship]';
-				scholar = document.getElementById(as).value;			
-				scholar = Number(scholar.replace(/\D/g,''));
-				
-				af=i+'[fines]';
-				fine = document.getElementById(af).value;
-	    		fine = Number(fine.replace(/\D/g,''));
-	    		document.getElementById(af).value = fine.formatMoney(0, ',', '.');
-			
-				aj=i+'[jumlah]';
-				jmlh=cost-scholar+fine;
+
+	    		aj=i+'[jumlah]';
+				jmlh = document.getElementById(aj).value;
+	    		jmlh = Number(jmlh.replace(/\D/g,''));
 	    		document.getElementById(aj).value = jmlh.formatMoney(0, ',', '.');
+
 	    	}else{jmlh=0;}
 			ttl=ttl+jmlh;			
 		}
 		//alert(ttl);
 		document.getElementById('total').value = ttl.formatMoney(0, ',', '.');
+	}
+
+	function fineschange(no){
+		var ac,as,af,aj='';
+		var cost,scholar,fine,jmlh=0;
+
+		ac=no+'[amount]';
+		cost = document.getElementById(ac).value;
+		cost = Number(cost.replace(/\D/g,''));
+		
+		as=no+'[scholarship]';
+		scholar = document.getElementById(as).value;			
+		scholar = Number(scholar.replace(/\D/g,''));
+		
+		af=no+'[fines]';
+		fine = document.getElementById(af).value;
+		fine = Number(fine.replace(/\D/g,''));
+		document.getElementById(af).value=fine.formatMoney(0, ',', '.');
+
+		aj=no+'[jumlah]';
+		jmlh = document.getElementById(aj).value;
+		jmlh = Number(jmlh.replace(/\D/g,''));
+
+		document.getElementById(aj).value=(cost-scholar+fine).formatMoney(0, ',', '.');
+		totalchange();
+	}
+
+	function dppchange(no){
+		var ac,as,af,aj='';
+		var cost,scholar,fine,jmlh=0;
+
+		ac=no+'[amount]';
+		cost = document.getElementById(ac).value;
+		cost = Number(cost.replace(/\D/g,''));
+		
+		as=no+'[scholarship]';
+		scholar = document.getElementById(as).value;			
+		scholar = Number(scholar.replace(/\D/g,''));
+		
+		af=no+'[fines]';
+		fine = document.getElementById(af).value;
+		fine = Number(fine.replace(/\D/g,''));
+
+		aj=no+'[jumlah]';
+		jmlh = document.getElementById(aj).value;
+		jmlh = Number(jmlh.replace(/\D/g,''));
+
+		if(jmlh>cost-scholar+fine){
+			alert("amount to pay can't more than calculation of DPP amount");
+			document.getElementById(aj).value=(cost-scholar+fine).formatMoney(0, ',', '.');
+		}else{
+			document.getElementById(aj).value=jmlh.formatMoney(0, ',', '.');
+		}
+		totalchange();
 	}
 
 	function pay_option(){
