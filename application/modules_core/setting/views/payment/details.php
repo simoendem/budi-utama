@@ -211,6 +211,10 @@
 	$('input.check-pay').click(function() {
 	    $(".modal-footer").toggle(this.checked);
 	});
+
+	$('#checkAll').click(function() {
+	    $(".modal-footer").toggle(this.checked);
+	});	
 		
 	$('input:radio[name="payment_method"]').change(
     function(){

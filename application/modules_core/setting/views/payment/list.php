@@ -73,7 +73,7 @@
 
                 <tbody>
                 <?php if(!empty($rs_siswa)){ ?>
-					        <?php $no = 1; foreach ($rs_siswa as $siswa): ?>
+					        <?php $no = 1; foreach ($rs_siswa as $siswa): /*if($siswa->item_type_id!=1 AND $siswa->hutang_dpp!=0){*/ ?>
                       <!--<tr href="payment/details/<?php echo $siswa->nis; ?>/<?php echo $siswa->tahun_ajaran_id; ?>">-->
                       <tr>
                           <td><?php echo $siswa->nis; ?></td>
@@ -96,9 +96,9 @@
                             <?php } ?>                            
                           </td>
                           <td><button type="button" class="btn btn-success" 
-                          onclick="pay_now(<?php echo $siswa->nis; ?>,'<?php echo $r_ta->id; ?>','<?php echo $siswa->item_type_id; ?>')">Pay</button></td>
+                          onclick="pay_now('<?php echo $siswa->nis; ?>','<?php echo $r_ta->id; ?>','<?php echo $siswa->item_type_id; ?>')">Pay</button></td>
                       </tr>
-                  <?php $no++; endforeach ; ?>
+                  <?php $no++; /*}*/ endforeach ; ?>
                 <?php }else{ ?>
                       <tr><td colspan="5" style="text-align:center"> - no data - </td></tr>
                 <?php } ?>

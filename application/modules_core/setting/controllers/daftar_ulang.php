@@ -15,6 +15,7 @@ class Daftar_ulang extends Admin_base {
 		$this->load->model('m_journals');
 		$this->load->model('m_journal_items');
 		$this->load->model('m_pendaftaran');
+		$this->load->model('m_items_type');
 		// load permission
 		$this->load->helper('text');
 		// page title
@@ -27,6 +28,7 @@ class Daftar_ulang extends Admin_base {
 		$this->check_auth('R');
 
 		$data['message'] = $this->session->flashdata('message');
+		$data['message_error'] = $this->session->flashdata('message_error');
 		// menu
 		$data['menu'] = $this->menu();
 		// user detail
@@ -47,12 +49,23 @@ class Daftar_ulang extends Admin_base {
 		// user_auth
 		$this->check_auth('U');
 
+		// get tahun ajaran
+		$data['tahun']	= $this->m_tahun_ajaran->get_tahun_aktif();
+		$ta_id = $data['tahun']->id;
+		$thn = $data['tahun']->tahun_ajaran;
+
+		$cek_ac = $this->m_items_type->get_administration_costs_aktif($ta_id);
+		$cc_ac = count($cek_ac);
+		//echo $cc_ac."<pre>";print_r($cek_ac);echo "</pre>"; die();
+		if($cc_ac<28){
+			$data['message_error'] = "Ada administration cost yang belum disetting..";
+			$this->session->set_flashdata($data);		
+			redirect('setting/daftar_ulang/');
+		}
+
 		if ($nis == "" OR $id_unit == "") {
 			redirect('setting/daftar_ulang/');
 		}
-		// get tahun ajaran
-		$data['tahun']	= $this->m_tahun_ajaran->get_tahun_aktif();
-		$thn = $data['tahun']->tahun_ajaran;
 
 	        $this->load->helper('date');
 	        $datestring = '%Y-%m-%d %H:%i:%s';
@@ -64,10 +77,10 @@ class Daftar_ulang extends Admin_base {
 				'tahun_ajaran' => $thn,
 				'tgl_daftar'	=> $now
 			);
-		//echo "<pre>";print_r($params);echo "</pre>"; 
+		
 		if ($this->m_daftar_ulang->daftar_ulang_siswa($params)) {
-			$data['message'] = "Siswa ".$params['nis']." berhasil didaftarulangkan..";
 			$this->_generate_invoice($params,$id_unit);
+			$data['message'] = "Siswa ".$params['nis']." berhasil didaftarulangkan..";
 		}
 		$this->session->set_flashdata($data);		
 		redirect('setting/daftar_ulang/');

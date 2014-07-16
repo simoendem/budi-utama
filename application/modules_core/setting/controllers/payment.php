@@ -137,12 +137,16 @@ class Payment extends Admin_base {
 					);
 				$this->m_payments->add_payments($pp);
 				$p_id = $this->db->insert_id();
+				if($value['item_name']=='DPP')
+					$amoutopay=(float)str_replace('.', '', $value['jumlah']);
+				else
+					$amoutopay=(float)str_replace('.', '', $value['amount']);
 				$pi = array(
 					'payment_id' => $p_id,
 					'invoice_id' => $value['invoice_id'],
 					'invoice_item_id' => $value['invoice_item_id'], 
-					'amount' => (float)str_replace('.', '', $value['jumlah']),
-					'fines' => $value['fines']
+					'amount' => $amoutopay,
+					'fines' => (float)str_replace('.', '',$value['fines'])
 					);
 				$this->m_payments->add_payment_items($pi);
 				if($this->input->post('payment_method')=='2'){
