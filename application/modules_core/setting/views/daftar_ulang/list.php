@@ -17,6 +17,12 @@
                 <strong>Well done!</strong>   <?php echo $message; ?>
         </div>
       <?php endif ; ?>
+      <?php if ($message_error != null ) : ?>
+      <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Error!</strong>   <?php echo $message_error; ?>
+        </div>
+      <?php endif ; ?>
 
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -41,7 +47,7 @@
                           <td>
                              <!--<a href="<?php echo base_url(); ?>setting/daftar_ulang/add_process/<?php echo $siswa->nis; ?>">
                              Daftar Ulang</a>-->
-                             <a href="#" onclick="daftar_ulang(<?php echo $siswa->nis ?>,'<?php echo $siswa->id_unit ?>','<?php echo $siswa->nama_lengkap ?>')">
+                             <a href="#" onclick="daftar_ulang('<?php echo $siswa->nis ?>','<?php echo $siswa->id_unit ?>','<?php echo $siswa->nama_lengkap ?>')">
                              Daftar Ulang</a>
                           </td>
                       </tr>
