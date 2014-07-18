@@ -46,12 +46,13 @@ class Payment extends Admin_base {
 		if(isset($cek)){
 			$params['ns']=$data['nama_siswa']=$this->input->post('nama_siswa');
 			$params['ct']=$data['cost_type']=$this->input->post('cost_type');
+			$data['rs_siswa']= $this->m_payments->get_student_invoice_tahun_aktif($params);
 		}
 		else{
 			$params['ns']='';
 			$params['ct']='';
+			$data['rs_siswa']= array();
 		}
-		$data['rs_siswa']= $this->m_payments->get_student_invoice_tahun_aktif($params);
 		//echo "<pre>";print_r($data['rs_siswa']);echo "</pre>";
 		// load template
 		$data['title']	= "Payment Transactions PinapleSAS";

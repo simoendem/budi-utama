@@ -45,7 +45,9 @@ class m_payments extends CI_Model {
 					DATEDIFF(DATE_FORMAT(NOW(),'%Y-%m-%d'),date_format(concat(SUBSTR(ii.period_name,4,4),'-',LEFT(ii.period_name,2),'-','10'),'%Y-%m-%d')),
 					DATEDIFF(DATE_FORMAT(NOW(),'%Y-%m-%d'),date_format(concat(RIGHT(ii.period_name,4),'-',LEFT(ii.period_name,2),'-','10'),'%Y-%m-%d'))) 
 					AS selisih, date_format(concat('2000','-',LEFT(ii.period_name,2),'-','10'),'%M') AS bulan,
-                    IFNULL(ii.amount,0) - IFNULL(ii.scholarship,0) - IFNULL(sum(p.amount),0) AS hutang_dpp
+                    IF(ii.item_type_id=1,
+                    IFNULL(ii.amount,0) - IFNULL(ii.scholarship,0) - IFNULL(sum(p.amount),0),
+                    'bukan_dpp') AS hutang_dpp
                 FROM invoice_items ii
                 LEFT JOIN invoices i ON i.id=ii.invoice_id
                 LEFT JOIN users_siswa_alumni usa ON usa.nis=i.nis
