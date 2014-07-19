@@ -72,8 +72,9 @@
                 </thead>
 
                 <tbody>
-                <?php if(!empty($rs_siswa)){ ?>
-					        <?php $no = 1; foreach ($rs_siswa as $siswa): if($siswa->item_type_id!=1 AND $siswa->hutang_dpp<=0){ ?>
+                <?php  /*"<pre>";print_r($rs_siswa);echo "</pre>";*/ if(!empty($rs_siswa)){ ?>
+					        <?php $no = 1; foreach ($rs_siswa as $siswa): 
+                      if($siswa->item_type_id!=1 OR ($siswa->item_type_id==1 AND $siswa->hutang_dpp>0)){ ?>
                       <!--<tr href="payment/details/<?php echo $siswa->nis; ?>/<?php echo $siswa->tahun_ajaran_id; ?>">-->
                       <tr>
                           <td><?php echo $siswa->nis; ?></td>
